@@ -39,7 +39,7 @@ public class PlayerBar : MonoBehaviour
 	/// <summary>
 	/// Максимальная скорость
 	/// </summary>
-	float _maxspeed;
+	float _maxspeed=10;
 
 	/// <summary>
 	/// 
@@ -49,33 +49,47 @@ public class PlayerBar : MonoBehaviour
 	/// <summary>
 	/// Скорость разгона палки
 	/// </summary>
-	float acceleration;
+	float acceleration = 0.25f;
 
 	/// <summary>
 	/// Трение палки
 	/// </summary>
-	float friction;
+	float friction = 0.55f;
 	#endregion
 
 	// Use this for initialization
 	void Start ()
 		{
-
+		body = GetComponent<Rigidbody>();
+		transform.position = Track.TrackCenter;
+		body.drag = friction;
 		}
 
 	// Update is called once per frame
 	void Update ()
 		{
 
+		var moving = -body.velocity;
+		if ( moving.magnitude < 0.5f )
+			body.velocity = Vector3.zero;
+		else
+			{
+			body.AddForce(moving.normalized*friction, ForceMode.Impulse);
+			}
 		}
 
 	public void MoveLeft()
 		{
-
+		if (body.velocity.magnitude<=_maxspeed)
+			{
+			body.AddForce(Track.Left, ForceMode.Impulse);
+			}
 		}
 
 	public void MoveRight()
 		{
+		if ( body.velocity.magnitude <= _maxspeed )
+			body.AddForce(-Track.Left, ForceMode.Impulse);
 
 		}
 	}
