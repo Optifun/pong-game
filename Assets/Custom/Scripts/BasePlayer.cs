@@ -13,10 +13,18 @@ public abstract class BasePlayer : MonoBehaviour
 	int score;
 	int Score { get { return score; } }
 
-	int identificator;
-	int playerNum;
-	string playerName;
-	string PlayerName {
+	/// <summary>
+	/// Уникальный идентификатор пользователя
+	/// </summary>
+	protected int identificator;
+
+	/// <summary>
+	/// Номер игрока по счету
+	/// 1-4
+	/// </summary>
+	protected int playerNum;
+	protected string playerName;
+	public string PlayerName {
 		get { return playerName; }
 		set {
 			if ( value != null )
@@ -31,7 +39,10 @@ public abstract class BasePlayer : MonoBehaviour
 	BarTrack track;
 	public void Move(float direction)
 		{
-		
+		if (direction<0)
+			Bar.MoveLeft();
+		else
+			Bar.MoveRight();
 		}
 	/// <summary>
 	/// Инициализирует сущность игрока

@@ -11,8 +11,12 @@ public class RealPlayer : BasePlayer
 		}
 
 	// Update is called once per frame
-	void Update ()
+	void FixedUpdate ()
 		{
-
+		if (Input.anyKeyDown)
+			{
+			var direction = Input.GetAxis($"Player{playerNum} Input");
+			Move(direction);
+			}
 		}
 	}

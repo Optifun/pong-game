@@ -38,7 +38,6 @@ public class BarTrack : MonoBehaviour
 	/// Зона в которой засчитывается гол
 	/// </summary>
 	Collider deadZone;
-	#endregion
 
 	/// <summary>
 	/// Положение палки игрока, значение от -1 до 1
@@ -49,6 +48,7 @@ public class BarTrack : MonoBehaviour
 			return (Vector3.Distance(tPlayer.position, TrackCenter))/trackWidth*2;
 			}
 		}
+	#endregion
 
 	void Start ()
 		{
@@ -57,16 +57,6 @@ public class BarTrack : MonoBehaviour
 		}
 
 	void Update ()
-		{
-
-		}
-
-	void MoveLeft()
-		{
-
-		}
-
-	void MoveRight()
 		{
 
 		}

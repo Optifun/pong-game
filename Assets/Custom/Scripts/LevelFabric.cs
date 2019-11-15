@@ -31,6 +31,7 @@ public class LevelFabric : Singleton<LevelFabric>
 		{
 
 		}
+
 	// Use this for initialization
 	void Start ()
 		{

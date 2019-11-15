@@ -11,6 +11,10 @@ public class BasicCamera : Singleton<BasicCamera>
 		cam = gameObject.GetComponent<Camera>();
 		}
 
+	/// <summary>
+	/// Устанавливает поворот камеры
+	/// </summary>
+	/// <param name="rot"></param>
 	public void Rotate(Vector3 rot)
 		{
 		rotation = rot;

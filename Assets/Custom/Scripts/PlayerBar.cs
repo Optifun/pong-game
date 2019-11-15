@@ -68,4 +68,14 @@ public class PlayerBar : MonoBehaviour
 		{
 
 		}
+
+	public void MoveLeft()
+		{
+
+		}
+
+	public void MoveRight()
+		{
+
+		}
 	}

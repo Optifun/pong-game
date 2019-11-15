@@ -2,6 +2,7 @@
 using System.Collections;
 
 /// <summary>
+/// Бесполезный класс
 /// Хранит инфу об игроках
 /// </summary>
 public class PlayerCenter : MonoBehaviour
