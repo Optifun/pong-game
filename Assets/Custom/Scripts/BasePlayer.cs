@@ -61,8 +61,4 @@ public abstract class BasePlayer : MonoBehaviour
 		score = _score;
 		playerNum = num;
 		}
-	private void Start ()
-		{
-		Initialize("pl1", GetComponent<PlayerBar>(), 1, 0);
-		}
 	}

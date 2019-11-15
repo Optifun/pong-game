@@ -51,7 +51,12 @@ public class BarTrack : MonoBehaviour
 			}
 		}
 	#endregion
-
+	void Awake ()
+		{
+		var map = GameObject.Find("Map").transform;
+		leftPoint = map.Find("W1").position;
+		rightPoint = map.Find("W2").position;
+		}
 	void Start ()
 		{
 		TrackCenter = ( rightPoint + leftPoint ) / 2;
