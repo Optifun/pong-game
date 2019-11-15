@@ -21,8 +21,13 @@ public class ChangePlace : MonoBehaviour
         PlayerCanvas.enabled = false;
     }
 
-    // Update is called once per frame
-    void Start()
+    public void Exit()
+    {
+        Application.Quit();
+    }
+
+        // Update is called once per frame
+        void Start()
     {
         GeneralCanvas.enabled = true;
         PlayerCanvas.enabled = false;
