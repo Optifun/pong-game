@@ -71,11 +71,12 @@ public class PlayerBar : MonoBehaviour
 
 	public void MoveLeft()
 		{
-
+		body.AddForce(Track.Left, ForceMode.Impulse);
 		}
 
 	public void MoveRight()
 		{
+		body.AddForce(-Track.Left, ForceMode.Impulse);
 
 		}
 	}

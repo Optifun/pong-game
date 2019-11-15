@@ -17,6 +17,8 @@ public class BarTrack : MonoBehaviour
 	/// Правая граница трека
 	/// </summary>
 	public Vector3 rightPoint { get; protected set; }
+	public Vector3 Left { get; protected set; }
+
 
 	/// <summary>
 	/// Срединная точка трека
@@ -54,6 +56,7 @@ public class BarTrack : MonoBehaviour
 		{
 		TrackCenter = ( rightPoint + leftPoint ) / 2;
 		trackWidth = Vector3.Distance(leftPoint, rightPoint);
+		Left = (leftPoint - TrackCenter ).normalized;
 		}
 
 	void Update ()
@@ -61,3 +64,5 @@ public class BarTrack : MonoBehaviour
 
 		}
 	}
+
+

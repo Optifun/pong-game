@@ -22,7 +22,7 @@ public abstract class BasePlayer : MonoBehaviour
 	/// Номер игрока по счету
 	/// 1-4
 	/// </summary>
-	protected int playerNum;
+	protected int playerNum = 1;
 	protected string playerName;
 	public string PlayerName {
 		get { return playerName; }
@@ -35,10 +35,11 @@ public abstract class BasePlayer : MonoBehaviour
 			}
 		}
 
-	PlayerBar Bar;
-	BarTrack track;
+	public PlayerBar Bar;
+	public BarTrack track;
 	public void Move(float direction)
 		{
+		Debug.Log(direction);
 		if (direction<0)
 			Bar.MoveLeft();
 		else
@@ -59,5 +60,9 @@ public abstract class BasePlayer : MonoBehaviour
 		playerName = _playerName;
 		score = _score;
 		playerNum = num;
+		}
+	private void Start ()
+		{
+		Initialize("pl1", GetComponent<PlayerBar>(), 1, 0);
 		}
 	}
