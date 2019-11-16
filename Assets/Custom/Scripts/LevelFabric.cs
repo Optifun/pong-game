@@ -10,9 +10,10 @@ public class LevelFabric : Singleton<LevelFabric>
 	    PlayerBar[] bars;       //платформы
 	    BarTrack[] tracks;
 	    GameObject[] borders;
-	    Vector3 fieldCenter;
-        
-	    static Color[] colors = {Color.red,Color.blue,Color.green,Color.yellow}; //цвета платформ
+		Vector3 FieldCenter;
+		float SpawnDelay = 5.5f;
+
+	static Color[] colors = {Color.red,Color.blue,Color.green,Color.yellow}; //цвета платформ
         public static Color GetColor(int id) { return colors[id];  }
 
 	    public GameObject TrackPrefab;
@@ -112,9 +113,9 @@ public class LevelFabric : Singleton<LevelFabric>
     IEnumerator SpawnBall()
 		{
         
-        var t = Instantiate(BouncePrefab, new Vector3(0, 0f, 0), Quaternion.identity);
+        var t = Instantiate(BouncePrefab, FieldCenter, Quaternion.identity);
         t.layer = 9;
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(SpawnDelay);
         StartCoroutine(SpawnBall());
     }
 
