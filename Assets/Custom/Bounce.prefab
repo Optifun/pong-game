@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4176248213765091856}
   m_Layer: 9
   m_Name: Bounce
-  m_TagString: Untagged
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,3 +121,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5537e6e194508864ca2d1e1803ad9276, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Hit: {fileID: 8990401873819581054, guid: 6e3256f782d18fe4681e2468d09ea42b, type: 3}

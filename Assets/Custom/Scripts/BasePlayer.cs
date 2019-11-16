@@ -45,6 +45,7 @@ public abstract class BasePlayer : MonoBehaviour
 		else
 			Bar.MoveRight();
 		}
+
 	/// <summary>
 	/// Инициализирует сущность игрока
 	/// </summary>
@@ -63,9 +64,5 @@ public abstract class BasePlayer : MonoBehaviour
 		playerName = _playerName;
 		score = _score;
 		playerNum = num;
-		}
-	private void Awake ()
-		{
-		Debug.Log(1);
 		}
 	}
