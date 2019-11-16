@@ -1336,6 +1336,12 @@ MonoBehaviour:
   PlayerCount: 1
   BotCount: 0
   TotalPlayers: 0
+  CountBalls: 0
+  GoalsList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   BouncePrefab: {fileID: 6141448755673956205, guid: 9cb6a1788ea6968459b625916efc1616,
     type: 3}
 --- !u!4 &1165321957

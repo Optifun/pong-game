@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 /// <summary>
 /// Контроллирует очки игроков, сложность уровня
@@ -9,9 +10,11 @@ public class Game : Singleton<Game>
 	public int PlayerCount=1;
 	public int BotCount;
 	BasePlayer[] players;
-	RectTransform[] scores;
+	Text[] scores;
     public int TotalPlayers;
     public int CountBalls;
+    public List<Text> GoalsList;
+
     public GameObject BouncePrefab;
     // Use this for initialization
     void Awake ()
@@ -21,13 +24,16 @@ public class Game : Singleton<Game>
 
 	public void StartGameScene ()
 		{
-		scores = GameObject.Find("Canvas").GetComponentsInChildren<RectTransform>();
+		scores = GameObject.Find("Canvas").transform.Find("Scores").GetComponentsInChildren<Text>();
 		players = LevelFabric.SingletonObj.CreateLevel(PlayerCount, BotCount);
         TotalPlayers = PlayerCount + BotCount;
+
 		foreach ( var item in players )
 			{
 			item.track.Goal += OnGoal;
-			}
+            printScore(item);
+
+            }
 		}
 
 	/// <summary>
@@ -45,6 +51,7 @@ public class Game : Singleton<Game>
             spawBall();
             CountBalls++;
         }
+        printScore(t);
 		return;
 		}
 
@@ -57,7 +64,10 @@ public class Game : Singleton<Game>
 			}
 		return null;
 		}
-
+    void printScore(BasePlayer t)
+    {
+        scores[t.identificator-1].GetComponent<Text>().text = t.Score.ToString();
+    }
     void spawBall()
     {
         var t = Instantiate(BouncePrefab, new Vector3(0, 0f, 0), Quaternion.identity);

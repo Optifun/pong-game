@@ -12,7 +12,7 @@ public abstract class BasePlayer : MonoBehaviour
 	event playerInfo NameChanged;
     public Color color;
 	int score;
-	public int Score { get { return score; } set { score = value; } }
+    public int Score { get { return score; } set { score = value; } }
 
 	/// <summary>
 	/// Уникальный идентификатор пользователя
@@ -58,7 +58,6 @@ public abstract class BasePlayer : MonoBehaviour
 		Bar = _bar;
 		track = Bar.Track;
 		identificator = PlayersCount++;
-
         _bar.GetComponent<MeshRenderer>().material.color = LevelFabric.GetColor(num-1);    //Установка уникального цвета игрока
 
 		playerName = _playerName;
