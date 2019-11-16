@@ -10,8 +10,11 @@ public class Game : Singleton<Game>
 	public int BotCount;
 	BasePlayer[] players;
 	RectTransform[] scores;
-	// Use this for initialization
-	void Awake ()
+    public int TotalPlayers;
+    public int CountBalls;
+    public GameObject BouncePrefab;
+    // Use this for initialization
+    void Awake ()
 		{
 		DontDestroyOnLoad(gameObject);
 		}
@@ -20,6 +23,7 @@ public class Game : Singleton<Game>
 		{
 		scores = GameObject.Find("Canvas").GetComponentsInChildren<RectTransform>();
 		players = LevelFabric.SingletonObj.CreateLevel(PlayerCount, BotCount);
+        TotalPlayers = PlayerCount + BotCount;
 		foreach ( var item in players )
 			{
 			item.track.Goal += OnGoal;
@@ -35,6 +39,12 @@ public class Game : Singleton<Game>
 		{
 		BasePlayer t = FindByID(id);
 		t.Score -= 1;
+        var r = Random.Range(0, 1);
+        if (CountBalls <= 6 && r ==0)
+        {
+            spawBall();
+            CountBalls++;
+        }
 		return;
 		}
 
@@ -48,6 +58,11 @@ public class Game : Singleton<Game>
 		return null;
 		}
 
+    void spawBall()
+    {
+        var t = Instantiate(BouncePrefab, new Vector3(0, 0f, 0), Quaternion.identity);
+        t.layer = 9;
+    }
 	// Update is called once per frame
 	void Update ()
 		{

@@ -11,10 +11,18 @@ public class BounceMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         //сообщаем шару начальную скорость
-
-        var angle = Random.Range(0f, 3.1415f*2);
         var velocity = 0.4f;// Random.Range(0f, 1f);
-        var way = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)).normalized;
+        Vector3 way;
+        if (Game.SingletonObj.TotalPlayers == 4)
+        {
+            var angle = Mathf.Deg2Rad * Random.Range(-80f,80f);
+            way = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)).normalized;
+        }
+        else
+        {
+            var angle = Mathf.Deg2Rad*(Random.Range(-80f,10f))*4;
+            way = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)).normalized;
+        }
         rb.AddForce(way * velocity);
         
     }
@@ -31,10 +39,10 @@ public class BounceMovement : MonoBehaviour
         {
             gameObject.GetComponent<MeshRenderer>().material.color = collision.gameObject.GetComponent<MeshRenderer>().material.color;
 
-            Instantiate(Hit,new Vector3(collision.contacts[0].point.x,
+            var hit = Instantiate(Hit,new Vector3(collision.contacts[0].point.x,
                                         collision.contacts[0].point.y,
                                         collision.contacts[0].point.z),Quaternion.identity);    //спавн хита
-
+            Destroy(hit, 0.5f);
         }
     }
 }

@@ -67,7 +67,9 @@ public class BarTrack : MonoBehaviour
 			if (Goal!=null)
 				Goal.Invoke(t.identificator);
 			Destroy(collision.gameObject);
-			}
+            Game.SingletonObj.CountBalls--;
+
+            }
 		}
 
 	void Start ()
