@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class Singleton<T>:MonoBehaviour where T:MonoBehaviour
 	{
-	static T Instance;
-	public static T singleton
+	static T instance;
+	public static T SingletonObj
 		{
 		get
 			{
-			if ( Instance == null )
-				Instance = GameObject.FindObjectOfType<T>();
-			return Instance;
+			if ( instance == null )
+				instance = GameObject.FindObjectOfType<T>();
+			return instance;
 			}
 		set
 			{
 			if (value!=null)
-				Instance = value;
+				instance = value;
 			}
 		}
 }

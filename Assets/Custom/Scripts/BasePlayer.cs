@@ -39,7 +39,6 @@ public abstract class BasePlayer : MonoBehaviour
 	public BarTrack track;
 	public void Move(float direction)
 		{
-		Debug.Log(direction);
 		if (direction<0)
 			Bar.MoveLeft();
 		else
@@ -60,5 +59,9 @@ public abstract class BasePlayer : MonoBehaviour
 		playerName = _playerName;
 		score = _score;
 		playerNum = num;
+		}
+	private void Awake ()
+		{
+		Debug.Log(1);
 		}
 	}
