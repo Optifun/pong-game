@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6542322056664648635}
   - component: {fileID: 6542322056664648632}
   - component: {fileID: 6542322056664648634}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BarTrack
   m_TagString: Untagged
   m_Icon: {fileID: 0}

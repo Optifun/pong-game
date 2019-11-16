@@ -14,6 +14,8 @@ public class LevelFabric : Singleton<LevelFabric>
 	Color[] colors;
 	public GameObject TrackPrefab;
 	public GameObject BarPrefab;
+	public GameObject BallPrefab;
+
 	Vector3[] faces = { Vector3.right, Vector3.left, Vector3.forward, -Vector3.back };
 	Vector2[] places = { new Vector2(1, 2), new Vector2(3, 4), new Vector2(4, 1), new Vector2(2, 3) };
 	float[] rotations = { 0, 180, -90, 90 };

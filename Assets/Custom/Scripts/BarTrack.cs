@@ -58,7 +58,13 @@ public class BarTrack : MonoBehaviour
 		//leftPoint = map.Find("W1").position;
 		//rightPoint = map.Find("W2").position;
 		}
-
+	private void OnCollisionEnter (Collision collision)
+		{
+		if (collision.gameObject.tag=="Ball")
+			{
+			
+			}
+		}
 	void Start ()
 		{
 		
