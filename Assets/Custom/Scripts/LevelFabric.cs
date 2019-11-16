@@ -14,12 +14,18 @@ public class LevelFabric : Singleton<LevelFabric>
         
 	    static Color[] colors = {Color.red,Color.blue,Color.green,Color.yellow}; //цвета платформ
         public static Color GetColor(int id) { return colors[id];  }
-
+        //префабы
 	    public GameObject TrackPrefab;
 	    public GameObject BarPrefab;
         public GameObject BouncePrefab;
         public GameObject WallPrefab;
-	    Vector3[] faces = { Vector3.right, Vector3.left, Vector3.forward, -Vector3.back };
+        //поля-счетчики
+        public GameObject SP1;
+        public GameObject SP2;
+        public GameObject SP3;
+        public GameObject SP4;
+    //
+    Vector3[] faces = { Vector3.right, Vector3.left, Vector3.forward, -Vector3.back };
 	    Vector2[] places = { new Vector2(1, 2), new Vector2(3, 4), new Vector2(4, 1), new Vector2(2, 3) };
 	    float[] rotations = { 0, 180, 90, -90 };
 
@@ -81,6 +87,8 @@ public class LevelFabric : Singleton<LevelFabric>
         {
             Instantiate(WallPrefab, new Vector3(-3.5f, 1.2f, -4f), Quaternion.Euler(0, 0, 0));
             Instantiate(WallPrefab, new Vector3(-3.5f, 1.2f, 4f), Quaternion.Euler(0, 0, 0));
+            SP3.SetActive(false);
+            SP4.SetActive(false);
         }
         StartCoroutine(SpawnBall());
         return players;
@@ -95,12 +103,17 @@ public class LevelFabric : Singleton<LevelFabric>
 
     IEnumerator SpawnBall()
 		{
-        
-        var t = Instantiate(BouncePrefab, new Vector3(0, 0f, 0), Quaternion.identity);
-        t.layer = 9;
-        yield return new WaitForSeconds(6f);
-        StartCoroutine(SpawnBall());
-    }
+        while (true)
+        {
+            if (Game.SingletonObj.CountBalls <= 6)
+            {
+                var t = Instantiate(BouncePrefab, new Vector3(0, 0f, 0), Quaternion.identity);
+                t.layer = 9;
+                Game.SingletonObj.CountBalls++;
+            }
+            yield return new WaitForSeconds(6f);
+        }
+        }
 
 	// Update is called once per frame
 	void Update ()

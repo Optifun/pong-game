@@ -189,7 +189,7 @@ Transform:
   m_LocalScale: {x: 0.16, y: 0.16, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &146692200
 GameObject:
@@ -2137,6 +2137,10 @@ MonoBehaviour:
     type: 3}
   WallPrefab: {fileID: 4550991099399323393, guid: bd402d6751cc8cc489fd0e9933413fdf,
     type: 3}
+  SP1: {fileID: 1013719148}
+  SP2: {fileID: 489818476}
+  SP3: {fileID: 2022185042}
+  SP4: {fileID: 1553137830}
 --- !u!1 &2022185042
 GameObject:
   m_ObjectHideFlags: 0
