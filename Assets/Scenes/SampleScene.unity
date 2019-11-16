@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1526980366}
-  m_IndirectSpecularColor: {r: 0.28502697, g: 0.37139347, b: 0.49601266, a: 1}
+  m_IndirectSpecularColor: {r: 0.2850269, g: 0.3713935, b: 0.49601045, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -382,7 +382,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.39174816, g: 0.3529412, b: 0.4811321, a: 0}
+  m_BackGroundColor: {r: 0.3908353, g: 0.3529412, b: 0.48235294, a: 0}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
@@ -1043,7 +1043,7 @@ RectTransform:
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: -374.73724, y: -210.80362}
   m_SizeDelta: {x: 69, y: 24}
-  m_Pivot: {x: -2.5, y: -6}
+  m_Pivot: {x: -2.5, y: -7}
 --- !u!4 &1162098185 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2635233537088887611, guid: 01b64f957c87ade4380ec92b740e6854,
