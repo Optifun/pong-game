@@ -8,69 +8,98 @@ public class MM : MonoBehaviour
 
     public Slider PlayerSlider;
     public Text PlayerInfoText;
-    public Slider BotSlider;
     public Text BotInfoText;
+    public Button Plus;
+    public Button Minus;
+    private int max = 3;
+    private int min = 0;
+    private int botval = 1;
     // Start is called before the first frame update
     void Start()
     {
         PlayerSlider.onValueChanged.AddListener(SliderChanged);
-        BotSlider.onValueChanged.AddListener(BotSliderChanged);
+        //BotSlider.onValueChanged.AddListener(BotSliderChanged);
     }
 
     public void StartGame()
     {
-        Application.LoadLevel("Game");
-        PlayerSlider.minValue = 1;
+        Application.LoadLevel("SampleScene");
+        //Передача данных в игру!!!
+        //PlayerSlider.minValue = 1;
+        //PlayerSlider.value = 1;
         SliderChanged(1);
     }
 
-    public void BotSliderChanged(float val)
+    public void AddPlus()
     {
-        BotSlider.value = val;
-        if (PlayerSlider.value == 3)
-        {
-            BotSlider.value = 1;
-        }
-        else if ((PlayerSlider.value == 1) && ((BotSlider.value != 1) || (BotSlider.value != 3)))
-        {
-            BotSlider.value = 1;
-        }
-        else if ((PlayerSlider.value == 2) && (BotSlider.value != 2))
-        {
-            BotSlider.value = 2;
-        }
-        else BotSlider.value = 0;
-
-
-
-        //Дописать
-        switch (PlayerSlider.value+val)
-        {
-            case 2:
-                {
-
-                    break;
-                }
-            case 3:
-                {
-                    break;
-                }
-            case 4:
-                {
-
-                    break;
-                }
-            default:
-                break;
-        }
-        BotInfoText.text = "" + BotSlider.value;
+        int c;
+        botval = max;
+        Plus.enabled = false;
+        Minus.enabled = true;
+        BotInfoText.text = "" + botval;
+    }
+    public void AddMinus()
+    {
+        int c;
+        botval = min;
+        Plus.enabled = true;
+        Minus.enabled = false;
+        BotInfoText.text = "" + botval;
     }
 
     public void SliderChanged(float val)
     {
-        PlayerSlider.value = val;
+        if (PlayerSlider.value == 1)
+        {
+            if (((botval != 1) && (botval != 3)) || (botval == 1))
+            {
+                botval = 1;
+                max = 3;
+                min = 1;
+                Minus.enabled = false;
+                Plus.enabled = true;
+            }
+            else if (botval == 3)
+            {
+                Minus.enabled = true;
+                Plus.enabled = false;
+                max = 3;
+                min = 1;
+            }
+        }
+        else
+        if (PlayerSlider.value == 2)
+        {
+            if (((botval != 2) && (botval != 0)) || (botval == 0))
+            {
+                botval = 0;
+                max = 2;
+                min = 0;
+                Minus.enabled = false;
+                Plus.enabled = true;
+            }
+            else if (botval == 2)
+            {
+                min = 0;
+                max = 2;
+                Minus.enabled = true;
+                Plus.enabled = false;
+            }
+        }
+        if (PlayerSlider.value == 3)
+        {
+            Minus.enabled = false;
+            Plus.enabled = false;
+            botval = 1;
+        }
+        else if (PlayerSlider.value == 4)
+        {
+            Minus.enabled = false;
+            Plus.enabled = false;
+            botval = 0;
+        }
         PlayerInfoText.text = "" + PlayerSlider.value;
-        BotSlider.value = val % 2;
+        BotInfoText.text = "" + botval;
     }
 
     // Update is called once per frame
