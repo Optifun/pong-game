@@ -12,7 +12,7 @@ public class MM : MonoBehaviour
     public Button Plus;
     public Button Minus;
     private int max = 3;
-    private int min = 0;
+    private int min = 1;
     private int botval = 1;
     // Start is called before the first frame update
     void Start()
