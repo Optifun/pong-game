@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2305526932110436287}
   - component: {fileID: 6508795141896055459}
   - component: {fileID: 5738830075407933796}
+  - component: {fileID: 4176248213765091856}
   m_Layer: 0
   m_Name: Bounce
   m_TagString: Untagged
@@ -108,3 +109,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &4176248213765091856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2871520591118070433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5537e6e194508864ca2d1e1803ad9276, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
