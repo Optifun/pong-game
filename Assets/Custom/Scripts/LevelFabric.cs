@@ -10,29 +10,45 @@ public class LevelFabric : Singleton<LevelFabric>
 	    PlayerBar[] bars;       //платформы
 	    BarTrack[] tracks;
 	    GameObject[] borders;
-	    Vector3 fieldCenter;
-
-	    static Color[] colors = {Color.red,Color.blue,Color.green,Color.yellow}; //цвета платформ
-        public static Color GetColor(int id) { return colors[id];  }
+		Vector3 FieldCenter;
+		float SpawnDelay = 5.5f;
+		static Color[] colors = { Color.red, Color.blue, Color.green, Color.yellow }; //цвета платформ
+		public static Color GetColor(int id) { return colors[id];  }
 
 	    public GameObject TrackPrefab;
 	    public GameObject BarPrefab;
-    public GameObject BouncePrefab;
+		public GameObject BouncePrefab;
 	    Vector3[] faces = { Vector3.right, Vector3.left, Vector3.forward, -Vector3.back };
 	    Vector2[] places = { new Vector2(1, 2), new Vector2(3, 4), new Vector2(4, 1), new Vector2(2, 3) };
 	    float[] rotations = { 0, 180, 90, -90 };
 
-	    void Awake()
-		    {
-		        //нахожу на карте коллонны
-		        borders = new GameObject[4];
-		        for ( int i = 1; i < 5; i++ )
-			        borders[i-1] = transform.Find($"W{i}").gameObject;
-		    }
-	private void Start ()
+	void Awake()
 		{
-		Game.SingletonObj.StartGameScene();
+		    //нахожу на карте коллонны
+		    borders = new GameObject[4];
+			FieldCenter = Vector3.zero;
+		    for ( int i = 1; i < 5; i++ )
+			{
+				var obj = transform.Find($"W{i}");
+				FieldCenter += obj.position;
+			    borders[i-1] = obj.gameObject;
+			}
+		//colors = new Color[4];
+		colors[0] = new Color(0.8313726f, 0.2627451f, 0.2f);
+		//0.8313726  0.2627451 0.2
+		colors[1] = new Color(0.2392157f, 0.6039216f, 1);
+		//0.2392157  0.6039216  1
+		colors[2] = new Color(0.6313726f, 0.8784314f, 0.31764f);
+		//0.6313726   0.8784314  0.317647
+		colors[3] = new Color(0.8862745f, 0.8745098f, 0.2313725f); //цвета платформ
+		//0.8862745  0.8745098 0.2313725
+		FieldCenter /= 4;
 		}
+
+		private void Start ()
+			{
+				Game.SingletonObj.StartGameScene();
+			}
 
 	/// <summary>
 	/// Создает и расставляет палки и треки
@@ -90,9 +106,8 @@ public class LevelFabric : Singleton<LevelFabric>
     IEnumerator SpawnBall()
 		{
         
-        Instantiate(BouncePrefab, new Vector3(0, 0f, 0), Quaternion.identity);
-        Debug.Log("mems");
-        yield return new WaitForSeconds(10f);
+        Instantiate(BouncePrefab, FieldCenter, Quaternion.identity);
+        yield return new WaitForSeconds(SpawnDelay);
         StartCoroutine(SpawnBall());
     }
 

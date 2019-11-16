@@ -400,7 +400,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 145.9, y: 225, z: 180}
 --- !u!114 &282840816
 MonoBehaviour:
@@ -1142,7 +1142,7 @@ Transform:
   m_LocalScale: {x: 29.707346, y: 29.707333, z: 29.707333}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1335794728
 GameObject:
@@ -1610,7 +1610,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 45, y: 130, z: 90}
 --- !u!1 &1553137830
 GameObject:
@@ -2129,7 +2129,7 @@ Transform:
   - {fileID: 238518985}
   - {fileID: 1335794729}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1948638177
 MonoBehaviour:
@@ -2146,6 +2146,8 @@ MonoBehaviour:
   TrackPrefab: {fileID: 6542322056664648633, guid: 4bcb03920e3eb9542ac30d43cf9e4e5b,
     type: 3}
   BarPrefab: {fileID: 5322621013574622987, guid: db76d728598b62944bbd60931a33d457,
+    type: 3}
+  BouncePrefab: {fileID: 6141448755673956205, guid: 9cb6a1788ea6968459b625916efc1616,
     type: 3}
 --- !u!1 &2022185042
 GameObject:
