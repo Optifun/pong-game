@@ -10,14 +10,15 @@ public class LevelFabric : Singleton<LevelFabric>
 	    PlayerBar[] bars;       //платформы
 	    BarTrack[] tracks;
 	    GameObject[] borders;
-		Vector3 FieldCenter;
-		float SpawnDelay = 5.5f;
-		static Color[] colors = { Color.red, Color.blue, Color.green, Color.yellow }; //цвета платформ
-		public static Color GetColor(int id) { return colors[id];  }
+	    Vector3 fieldCenter;
+        
+	    static Color[] colors = {Color.red,Color.blue,Color.green,Color.yellow}; //цвета платформ
+        public static Color GetColor(int id) { return colors[id];  }
 
 	    public GameObject TrackPrefab;
 	    public GameObject BarPrefab;
-		public GameObject BouncePrefab;
+        public GameObject BouncePrefab;
+        public GameObject WallPrefab;
 	    Vector3[] faces = { Vector3.right, Vector3.left, Vector3.forward, -Vector3.back };
 	    Vector2[] places = { new Vector2(1, 2), new Vector2(3, 4), new Vector2(4, 1), new Vector2(2, 3) };
 	    float[] rotations = { 0, 180, 90, -90 };
@@ -92,6 +93,11 @@ public class LevelFabric : Singleton<LevelFabric>
 			players[i].Initialize($"Player{i + 1}", bars[i], i + 1, 0);
 			bars[i].Player = players[i];
 			}
+        if(plCount+botCount == 2)
+        {
+            Instantiate(WallPrefab, new Vector3(-3.5f, 1.2f, -4f), Quaternion.Euler(0, 0, 0));
+            Instantiate(WallPrefab, new Vector3(-3.5f, 1.2f, 4f), Quaternion.Euler(0, 0, 0));
+        }
         StartCoroutine(SpawnBall());
         return players;
 		}
@@ -106,8 +112,9 @@ public class LevelFabric : Singleton<LevelFabric>
     IEnumerator SpawnBall()
 		{
         
-        Instantiate(BouncePrefab, FieldCenter, Quaternion.identity);
-        yield return new WaitForSeconds(SpawnDelay);
+        var t = Instantiate(BouncePrefab, new Vector3(0, 0f, 0), Quaternion.identity);
+        t.layer = 9;
+        yield return new WaitForSeconds(6f);
         StartCoroutine(SpawnBall());
     }
 
