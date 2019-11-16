@@ -7,7 +7,7 @@ using System.Collections;
 public class BarTrack : MonoBehaviour
 	{
 	#region Variables
-	public delegate void ScoreChanged (int id, int score);
+	public delegate void ScoreChanged (int id);
 	public event ScoreChanged Goal;
 	/// <summary>
 	/// Левая граница трека
@@ -59,18 +59,33 @@ public class BarTrack : MonoBehaviour
 		//rightPoint = map.Find("W2").position;
 		}
 
+	private void OnCollisionEnter (Collision collision)
+		{
+		if (collision.gameObject.tag=="Ball")
+			{
+			var t = player.Player;
+			if (Goal!=null)
+				Goal.Invoke(t.identificator);
+			Destroy(collision.gameObject);
+			}
+		}
+
 	void Start ()
 		{
-		
 		trackWidth = Vector3.Distance(leftPoint, rightPoint);
-		
 		}
+
 	public void Initialize (Vector3 left, Vector3 right, float yRotation)
 		{
+		var t = new Quaternion();
+		t.eulerAngles = new Vector3(0, yRotation, 0);
+		transform.rotation = t;
+
 		leftPoint = left;
 		rightPoint = right;
 		TrackCenter = ( rightPoint + leftPoint ) / 2;
 		Left = (leftPoint - TrackCenter ).normalized;
+
 		transform.position = TrackCenter;
 		
 		}

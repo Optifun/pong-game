@@ -37,6 +37,11 @@ public class PlayerBar : MonoBehaviour
 	public BarTrack Track;
 
 	/// <summary>
+	/// Трек по которому двигается палка
+	/// </summary>
+	public BasePlayer Player;
+
+	/// <summary>
 	/// Максимальная скорость
 	/// </summary>
 	float _maxspeed=10;

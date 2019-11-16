@@ -6,17 +6,18 @@ using System.Collections;
 /// </summary>
 public abstract class BasePlayer : MonoBehaviour
 	{
+	public static int PlayersCount = 1;
 	public delegate void playerInfo (string name, int id);
 	event playerInfo PlayerJoined;
 	event playerInfo NameChanged;
     public Color color;
 	int score;
-	int Score { get { return score; } }
+	public int Score { get { return score; } set { score = value; } }
 
 	/// <summary>
 	/// Уникальный идентификатор пользователя
 	/// </summary>
-	protected int identificator;
+	public int identificator;
 
 	/// <summary>
 	/// Номер игрока по счету
@@ -44,6 +45,7 @@ public abstract class BasePlayer : MonoBehaviour
 		else
 			Bar.MoveRight();
 		}
+
 	/// <summary>
 	/// Инициализирует сущность игрока
 	/// </summary>
@@ -55,15 +57,12 @@ public abstract class BasePlayer : MonoBehaviour
 		{
 		Bar = _bar;
 		track = Bar.Track;
+		identificator = PlayersCount++;
 
         _bar.GetComponent<MeshRenderer>().material.color = LevelFabric.GetColor(num-1);    //Установка уникального цвета игрока
 
 		playerName = _playerName;
 		score = _score;
 		playerNum = num;
-		}
-	private void Awake ()
-		{
-		Debug.Log(1);
 		}
 	}

@@ -14,8 +14,7 @@ GameObject:
   - component: {fileID: 201449386960300247}
   - component: {fileID: 2655647417068704060}
   - component: {fileID: 2357678787968097670}
-  - component: {fileID: 2539747174506098449}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bar
   m_TagString: Bar
   m_Icon: {fileID: 0}
@@ -125,18 +124,5 @@ MonoBehaviour:
   body: {fileID: 2655647417068704060}
   Width: 0
   Front: {x: 1, y: 0, z: 0}
-  Track: {fileID: 2539747174506098449}
---- !u!114 &2539747174506098449
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5322621013574622987}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1611397e405e8941b0a1a4b0f0e56ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 2357678787968097670}
-  tPlayer: {fileID: 9168530836732666087}
+  Track: {fileID: 0}
+  Player: {fileID: 0}

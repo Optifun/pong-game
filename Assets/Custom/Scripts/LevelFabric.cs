@@ -20,7 +20,7 @@ public class LevelFabric : Singleton<LevelFabric>
     public GameObject BouncePrefab;
 	    Vector3[] faces = { Vector3.right, Vector3.left, Vector3.forward, -Vector3.back };
 	    Vector2[] places = { new Vector2(1, 2), new Vector2(3, 4), new Vector2(4, 1), new Vector2(2, 3) };
-	    float[] rotations = { 0, 180, -90, 90 };
+	    float[] rotations = { 0, 180, 90, -90 };
 
 	    void Awake()
 		    {
@@ -29,6 +29,10 @@ public class LevelFabric : Singleton<LevelFabric>
 		        for ( int i = 1; i < 5; i++ )
 			        borders[i-1] = transform.Find($"W{i}").gameObject;
 		    }
+	private void Start ()
+		{
+		Game.SingletonObj.StartGameScene();
+		}
 
 	/// <summary>
 	/// Создает и расставляет палки и треки
@@ -70,6 +74,7 @@ public class LevelFabric : Singleton<LevelFabric>
 				players[i] = bars[i].gameObject.AddComponent<BotPlayer>();
 			//инициализирует игрока именем и номером
 			players[i].Initialize($"Player{i + 1}", bars[i], i + 1, 0);
+			bars[i].Player = players[i];
 			}
         StartCoroutine(SpawnBall());
         return players;
