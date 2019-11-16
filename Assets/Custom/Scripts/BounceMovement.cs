@@ -24,11 +24,12 @@ public class BounceMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bar"))
         {
-            gameObject.GetComponent<MeshRenderer>().material = collision.gameObject.GetComponent<MeshRenderer>().material;
+            gameObject.GetComponent<MeshRenderer>().material.color = collision.gameObject.GetComponent<MeshRenderer>().material.color;
+
             Instantiate(Hit,new Vector3(collision.contacts[0].point.x,
                                         collision.contacts[0].point.y,
                                         collision.contacts[0].point.z),Quaternion.identity);    //спавн хита
-            Destroy(Hit);
+
         }
     }
 }
