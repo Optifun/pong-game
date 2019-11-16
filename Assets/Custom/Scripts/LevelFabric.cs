@@ -6,26 +6,28 @@ using System.Collections;
 /// </summary>
 public class LevelFabric : Singleton<LevelFabric>
 	{
-	BasePlayer[] players;
-	PlayerBar[] bars;
-	BarTrack[] tracks;
-	GameObject[] borders;
-	Vector3 fieldCenter;
-	Color[] colors;
-	public GameObject TrackPrefab;
-	public GameObject BarPrefab;
-	public GameObject BallPrefab;
+	    BasePlayer[] players;   //игроки
+	    PlayerBar[] bars;       //платформы
+	    BarTrack[] tracks;
+	    GameObject[] borders;
+	    Vector3 fieldCenter;
 
-	Vector3[] faces = { Vector3.right, Vector3.left, Vector3.forward, -Vector3.back };
-	Vector2[] places = { new Vector2(1, 2), new Vector2(3, 4), new Vector2(4, 1), new Vector2(2, 3) };
-	float[] rotations = { 0, 180, -90, 90 };
-	void Awake()
-		{
-		//нахожу на карте коллонны
-		borders = new GameObject[4];
-		for ( int i = 1; i < 5; i++ )
-			borders[i-1] = transform.Find($"W{i}").gameObject;
-		}
+	    static Color[] colors = {Color.red,Color.blue,Color.green,Color.yellow}; //цвета платформ
+        public static Color GetColor(int id) { return colors[id];  }
+
+	    public GameObject TrackPrefab;
+	    public GameObject BarPrefab;
+	    Vector3[] faces = { Vector3.right, Vector3.left, Vector3.forward, -Vector3.back };
+	    Vector2[] places = { new Vector2(1, 2), new Vector2(3, 4), new Vector2(4, 1), new Vector2(2, 3) };
+	    float[] rotations = { 0, 180, -90, 90 };
+
+	    void Awake()
+		    {
+		        //нахожу на карте коллонны
+		        borders = new GameObject[4];
+		        for ( int i = 1; i < 5; i++ )
+			        borders[i-1] = transform.Find($"W{i}").gameObject;
+		    }
 
 	/// <summary>
 	/// Создает и расставляет палки и треки
