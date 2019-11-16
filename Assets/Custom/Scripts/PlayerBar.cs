@@ -100,4 +100,4 @@ public class PlayerBar : MonoBehaviour
 			body.AddForce(-Track.Left*acceleration, ForceMode.Impulse);
 
 		}
-	}
+}
