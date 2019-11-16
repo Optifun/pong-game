@@ -995,7 +995,7 @@ GameObject:
   - component: {fileID: 1003296707}
   - component: {fileID: 1003296706}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: GameController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1013,7 +1013,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: babaf9b9aa2547b40b86509d92d9da68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerCount: 2
+  PlayerCount: 4
   BotCount: 0
 --- !u!4 &1003296707
 Transform:

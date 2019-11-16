@@ -24,7 +24,7 @@ public class Game : Singleton<Game>
 	/// </summary>
 	/// <param name="id"></param>
 	/// <param name="score"></param>
-	private void OnGoal (int id, int score)
+	private void OnGoal (int id)
 		{
 		BasePlayer t = FindByID(id);
 		t.Score -= 1;
