@@ -28,6 +28,10 @@ public class LevelFabric : Singleton<LevelFabric>
 		        for ( int i = 1; i < 5; i++ )
 			        borders[i-1] = transform.Find($"W{i}").gameObject;
 		    }
+	private void Start ()
+		{
+		Game.SingletonObj.StartGameScene();
+		}
 
 	/// <summary>
 	/// Создает и расставляет палки и треки

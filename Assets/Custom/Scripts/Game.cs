@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using UnityEngine.UI;
 /// <summary>
 /// Контроллирует очки игроков, сложность уровня
 /// </summary>
@@ -9,9 +9,16 @@ public class Game : Singleton<Game>
 	public int PlayerCount=1;
 	public int BotCount;
 	BasePlayer[] players;
+	RectTransform[] scores;
 	// Use this for initialization
-	void Start ()
+	void Awake ()
 		{
+		DontDestroyOnLoad(gameObject);
+		}
+
+	public void StartGameScene ()
+		{
+		scores = GameObject.Find("Canvas").GetComponentsInChildren<RectTransform>();
 		players = LevelFabric.SingletonObj.CreateLevel(PlayerCount, BotCount);
 		foreach ( var item in players )
 			{

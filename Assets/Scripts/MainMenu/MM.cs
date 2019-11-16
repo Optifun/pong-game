@@ -23,6 +23,8 @@ public class MM : MonoBehaviour
 
     public void StartGame()
     {
+		Game.SingletonObj.PlayerCount = (int)PlayerSlider.value;
+		Game.SingletonObj.BotCount = botval;
         Application.LoadLevel("SampleScene");
         //Передача данных в игру!!!
         //PlayerSlider.minValue = 1;
