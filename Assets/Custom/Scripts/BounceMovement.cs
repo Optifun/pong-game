@@ -11,7 +11,7 @@ public class BounceMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         //сообщаем шару начальную скорость
-        rb.AddForce(-Vector3.right*0.3f);
+        rb.AddForce(new Vector3(Random.Range(0f,1f), 0, Random.Range(0f, 1f)) *0.4f);
         
     }
 
