@@ -5,7 +5,7 @@ using UnityEngine;
 public class BounceMovement : MonoBehaviour
 {
     Rigidbody rb;
-    Material mat;
+    public GameObject Hit;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,8 +24,11 @@ public class BounceMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bar"))
         {
-            mat = collision.gameObject.GetComponent<MeshRenderer>().material;
-            gameObject.GetComponent<MeshRenderer>().material = mat;
+            gameObject.GetComponent<MeshRenderer>().material = collision.gameObject.GetComponent<MeshRenderer>().material;
+            Instantiate(Hit,new Vector3(collision.contacts[0].point.x,
+                                        collision.contacts[0].point.y,
+                                        collision.contacts[0].point.z),Quaternion.identity);    //спавн хита
+            Destroy(Hit);
         }
     }
 }
