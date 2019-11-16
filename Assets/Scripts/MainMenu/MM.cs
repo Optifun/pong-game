@@ -26,20 +26,20 @@ public class MM : MonoBehaviour
 
     public void BotSliderChanged(float val)
     {
-        //BotSlider.value = val;
-        //if (PlayerSlider.value == 3)
-        //{
-        //    BotSlider.value = 1;
-        //}
-        //else if ((PlayerSlider.value == 1) && ((BotSlider.value != 1) || (BotSlider.value != 3)))
-        //{
-        //    BotSlider.value = 1;
-        //}
-        //else if ((PlayerSlider.value == 2) && (BotSlider.value != 2))
-        //{
-        //    BotSlider.value = 2;
-        //}
-        //else BotSlider.value = 0;
+        BotSlider.value = val;
+        if (PlayerSlider.value == 3)
+        {
+            BotSlider.value = 1;
+        }
+        else if ((PlayerSlider.value == 1) && ((BotSlider.value != 1) || (BotSlider.value != 3)))
+        {
+            BotSlider.value = 1;
+        }
+        else if ((PlayerSlider.value == 2) && (BotSlider.value != 2))
+        {
+            BotSlider.value = 2;
+        }
+        else BotSlider.value = 0;
 
 
 
@@ -48,6 +48,7 @@ public class MM : MonoBehaviour
         {
             case 2:
                 {
+
                     break;
                 }
             case 3:
@@ -56,18 +57,19 @@ public class MM : MonoBehaviour
                 }
             case 4:
                 {
+
                     break;
                 }
             default:
                 break;
         }
-        BotInfoText.text = "Количество ботов " + BotSlider.value;
+        BotInfoText.text = "" + BotSlider.value;
     }
 
     public void SliderChanged(float val)
     {
         PlayerSlider.value = val;
-        PlayerInfoText.text = "Количество игроков " + PlayerSlider.value;
+        PlayerInfoText.text = "" + PlayerSlider.value;
         BotSlider.value = val % 2;
     }
 
