@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 /// <summary>
 /// Контроллирует очки игроков, сложность уровня
 /// </summary>
@@ -27,13 +29,18 @@ public class Game : Singleton<Game>
 		scores = GameObject.Find("Canvas").transform.Find("Scores").GetComponentsInChildren<Text>();
 		players = LevelFabric.SingletonObj.CreateLevel(PlayerCount, BotCount);
         TotalPlayers = PlayerCount + BotCount;
-
+		UIInGameManager.SingletonObj.TimeIsUp += GameOver;
 		foreach ( var item in players )
 			{
 			item.track.Goal += OnGoal;
             printScore(item);
 
             }
+		}
+
+	private void GameOver ()
+		{
+		SceneManager.LoadScene(2);
 		}
 
 	/// <summary>

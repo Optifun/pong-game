@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIInGameManager : MonoBehaviour
+public class UIInGameManager : Singleton<UIInGameManager>
 {
+	public delegate void TimerEvent ();
+	public event TimerEvent TimeIsUp;
     public Text Time;
     private int time = 120;
     //3left
@@ -25,14 +27,21 @@ public class UIInGameManager : MonoBehaviour
 
     IEnumerator GameTime()
     {
-        yield return new WaitForSeconds(1f);
-        time--;
-        if (time % 60 < 10)
-        {
-            Time.text = time / 60 + ":0" + time % 60;
-        }
-        else
-        Time.text = time / 60+":" + time % 60;
-        StartCoroutine(GameTime());
+		while ( true )
+			{
+			yield return new WaitForSeconds(1f);
+			time--;
+			if ( time % 60 < 10 )
+				{
+				Time.text = time / 60 + ":0" + time % 60;
+				}
+			else
+				Time.text = time / 60 + ":" + time % 60;
+			if (time==0)
+				{
+				TimeIsUp();
+				yield return null;
+				}
+			}
     }
 }

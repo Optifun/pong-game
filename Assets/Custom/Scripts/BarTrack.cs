@@ -18,6 +18,7 @@ public class BarTrack : MonoBehaviour
 	/// Правая граница трека
 	/// </summary>
 	public Vector3 rightPoint { get; protected set; }
+	[SerializeField]
 	public Vector3 Left { get; protected set; }
 
 
