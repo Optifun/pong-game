@@ -18,7 +18,7 @@ public class BotPlayer : BasePlayer
 		//List<Vector3> bPositions = new List<Vector3>();
 		Vector3 result = Vector3.zero;
 		int count = 0;
-		float maxDistance = 0;
+		float minDistance = 10;
 		float distance = 0;
 		foreach ( var item in balls )
 			{
@@ -26,17 +26,17 @@ public class BotPlayer : BasePlayer
 			if ( Vector3.Dot(velocity, Bar.Front) < 0 )
 				{
 				distance = Vector3.Distance(item.transform.position, transform.position);
-				maxDistance = ( maxDistance < distance ) ? distance : maxDistance;
-				result += item.transform.position * distance;
+				minDistance = ( minDistance > distance ) ? distance : minDistance;
+				result += item.transform.position / distance;
 				count++;
 				}
 			}
 		if ( count == 0 )
 			{
 			count = 1;
-			maxDistance = 1;
+			minDistance = 1;
 			}
-		return result / count / maxDistance;
+		return result / count * minDistance;
 		}
 
 	// Update is called once per frame
