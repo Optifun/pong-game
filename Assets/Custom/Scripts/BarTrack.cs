@@ -88,7 +88,7 @@ public class BarTrack : MonoBehaviour
 		rightPoint = right;
 		TrackCenter = ( rightPoint + leftPoint ) / 2;
 		Left = (leftPoint - TrackCenter ).normalized;
-
+		Debug.Log(Left);
 		transform.position = TrackCenter;
 		
 		}

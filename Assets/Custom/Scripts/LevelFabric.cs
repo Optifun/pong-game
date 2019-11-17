@@ -28,7 +28,7 @@ public class LevelFabric : Singleton<LevelFabric>
         public GameObject SP4;
     //
 		Vector3[] faces = { Vector3.right, Vector3.left, Vector3.back, Vector3.forward };
-	    Vector2[] places = { new Vector2(1, 2), new Vector2(3, 4), new Vector2(1, 4), new Vector2(3, 2) };
+		Vector2[] places = { new Vector2(1, 2), new Vector2(3, 4), new Vector2(1, 4), new Vector2(3, 2) };
 	    float[] rotations = { 0, 180, 90, -90 };
 
 	void Awake()
@@ -103,6 +103,7 @@ public class LevelFabric : Singleton<LevelFabric>
 			//инициализирует игрока именем и номером
 			players[i].Initialize($"Player{i + 1}", bars[i], i + 1, 0);
 			bars[i].Player = players[i];
+			players[i].color = colors[i];
 			}
         if(plCount+botCount == 2)
         {

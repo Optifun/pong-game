@@ -65,3 +65,16 @@ public abstract class BasePlayer : MonoBehaviour
 		playerNum = num;
 		}
 	}
+
+public class Score
+	{
+	public string name;
+	public Color color;
+	public int score;
+	public Score(string _name, int _sc, Color c)
+		{
+		name = _name;
+		score = _sc;
+		color = c;
+		}
+	}
