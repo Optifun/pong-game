@@ -57,7 +57,10 @@ public class LevelFabric : Singleton<LevelFabric>
 			{
 				Game.SingletonObj.StartGameScene();
 			}
-
+        public void BackToMenu()
+        {
+        Application.LoadLevel("MainMenu");
+        }
 	/// <summary>
 	/// Создает и расставляет палки и треки
 	/// </summary>
