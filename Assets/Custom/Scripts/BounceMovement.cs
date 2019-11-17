@@ -13,7 +13,7 @@ public class BounceMovement : MonoBehaviour
         //сообщаем шару начальную скорость
 
         var angle = Random.Range(0f, 3.1415f*2);
-        var velocity = 0.4f;// Random.Range(0f, 1f);
+        var velocity = 0.2f;// Random.Range(0f, 1f);
         var way = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)).normalized;
         rb.AddForce(way * velocity);
         
