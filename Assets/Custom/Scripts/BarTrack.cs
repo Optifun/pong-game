@@ -60,14 +60,14 @@ public class BarTrack : MonoBehaviour
 		//rightPoint = map.Find("W2").position;
 		}
 
-	private void OnCollisionEnter (Collision collision)
+	private void OnTriggerExit (Collider collision)
 		{
 		if (collision.gameObject.tag=="Ball")
 			{
 			var t = player.Player;
 			if (Goal!=null)
 				Goal.Invoke(t.identificator);
-			Destroy(collision.gameObject);
+			Destroy(collision.gameObject,2f);
             Game.SingletonObj.CountBalls--;
 
             }
