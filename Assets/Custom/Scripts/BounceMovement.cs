@@ -6,9 +6,11 @@ public class BounceMovement : MonoBehaviour
 {
     Rigidbody rb;
     public GameObject Hit;
+    float timer;
     // Start is called before the first frame update
     void Start()
     {
+        timer = 0;
         rb = GetComponent<Rigidbody>();
         //сообщаем шару начальную скорость
         var velocity = 0.4f;// Random.Range(0f, 1f);
@@ -30,7 +32,10 @@ public class BounceMovement : MonoBehaviour
     //
     void Update()
     {
-
+        timer += Time.deltaTime;
+        Debug.Log(timer);
+        if (timer >= 30)
+            Destroy(gameObject);
     }
 
     private void OnCollisionEnter(Collision collision)
