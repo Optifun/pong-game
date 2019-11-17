@@ -8,7 +8,6 @@ public class UIInGameManager : Singleton<UIInGameManager>
 	public delegate void TimerEvent ();
 	public event TimerEvent TimeIsUp;
     public Text Time;
-    private int time = 120;
     //3left
     //4right
     //1bottom
@@ -16,7 +15,7 @@ public class UIInGameManager : Singleton<UIInGameManager>
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(GameTime());
+        StartCoroutine(GameTime(10));
     }
 
     // Update is called once per frame
@@ -25,19 +24,19 @@ public class UIInGameManager : Singleton<UIInGameManager>
         
     }
 
-    IEnumerator GameTime()
+    IEnumerator GameTime(int seconds)
     {
 		while ( true )
 			{
 			yield return new WaitForSeconds(1f);
-			time--;
-			if ( time % 60 < 10 )
+			seconds--;
+			if ( seconds % 60 < 10 )
 				{
-				Time.text = time / 60 + ":0" + time % 60;
+				Time.text = seconds / 60 + ":0" + seconds % 60;
 				}
 			else
-				Time.text = time / 60 + ":" + time % 60;
-			if (time==0)
+				Time.text = seconds / 60 + ":" + seconds % 60;
+			if (seconds==0)
 				{
 				TimeIsUp();
 				yield return null;
