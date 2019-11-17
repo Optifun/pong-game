@@ -51,7 +51,7 @@ public class Game : Singleton<Game>
 	private void OnGoal (int id)
 		{
 		BasePlayer t = FindByID(id);
-		t.Score -= 1;
+		t.Score += 1;
         var r = Random.Range(0, 1);
         if (CountBalls <= 6 && r ==0)
         {
