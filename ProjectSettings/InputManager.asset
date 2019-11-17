@@ -41,10 +41,10 @@ InputManager:
     m_Name: Player3 Input
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: j
-    positiveButton: g
-    altNegativeButton: joystick button 5
-    altPositiveButton: joystick button 4
+    negativeButton: g
+    positiveButton: j
+    altNegativeButton: joystick button 4
+    altPositiveButton: joystick button 5
     gravity: 3
     dead: 0.001
     sensitivity: 3
@@ -57,10 +57,10 @@ InputManager:
     m_Name: Player4 Input
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: l
-    positiveButton: ''''
-    altNegativeButton: joystick button 5
-    altPositiveButton: joystick button 4
+    negativeButton: ''''
+    positiveButton: l
+    altNegativeButton: joystick button 4
+    altPositiveButton: joystick button 5
     gravity: 3
     dead: 0.001
     sensitivity: 3
