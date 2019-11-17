@@ -11,12 +11,12 @@ public class Game : Singleton<Game>
 	{
 	public int PlayerCount=1;
 	public int BotCount;
-	BasePlayer[] players;
+	public BasePlayer[] players;
 	Text[] scores;
     public int TotalPlayers;
     public int CountBalls;
     public List<Text> GoalsList;
-
+	public Score[] scoresFin;
     public GameObject BouncePrefab;
     // Use this for initialization
     void Awake ()
@@ -40,6 +40,9 @@ public class Game : Singleton<Game>
 
 	private void GameOver ()
 		{
+		scoresFin = new Score[players.Length];
+		for ( int i = 0; i < players.Length; i++ )
+			scoresFin[i] = new Score(players[i].name, players[i].Score, players[i].color);
 		SceneManager.LoadScene(2);
 		}
 
