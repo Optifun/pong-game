@@ -13,7 +13,7 @@ public class BounceMovement : MonoBehaviour
         timer = 0;
         rb = GetComponent<Rigidbody>();
         //сообщаем шару начальную скорость
-        var velocity = 0.4f;// Random.Range(0f, 1f);
+        var velocity = 0.35f;// Random.Range(0f, 1f);
         Vector3 way;
         int r = Random.Range(0, 4);
         float offset = 0;
