@@ -112,7 +112,6 @@ public class LevelFabric : Singleton<LevelFabric>
             SP4.SetActive(false);
         }
         StartCoroutine(cForStart());
-        StartCoroutine(SpawnBall());
         return players;
 		}
 	/// <summary>
@@ -134,6 +133,8 @@ public class LevelFabric : Singleton<LevelFabric>
         }
         text.text = "";
 
+        StartCoroutine(SpawnBall());
+        StartCoroutine(UIInGameManager.SingletonObj.GameTime(120));
     }
     IEnumerator SpawnBall()
 		{
