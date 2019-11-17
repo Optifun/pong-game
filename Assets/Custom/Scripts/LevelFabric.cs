@@ -1,18 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using UnityEngine.UI;
 /// <summary>
 /// Фабрика контролирующая создание объектов
 /// </summary>
 public class LevelFabric : Singleton<LevelFabric>
 	{
+    int i = 2;
 	    BasePlayer[] players;   //игроки
 	    PlayerBar[] bars;       //платформы
 	    BarTrack[] tracks;
 	    GameObject[] borders;
 		Vector3 FieldCenter;
 		float SpawnDelay = 5.5f;
-
+    public Text text;
 	static Color[] colors = {Color.red,Color.blue,Color.green,Color.yellow}; //цвета платформ
         public static Color GetColor(int id) { return colors[id];  }
         //префабы
@@ -107,6 +108,7 @@ public class LevelFabric : Singleton<LevelFabric>
             SP3.SetActive(false);
             SP4.SetActive(false);
         }
+        StartCoroutine(cForStart());
         StartCoroutine(SpawnBall());
         return players;
 		}
@@ -117,18 +119,31 @@ public class LevelFabric : Singleton<LevelFabric>
 		{
 
 		}
+    IEnumerator cForStart()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1f);
+            if (i == 0)
+                break;
+            text.text = i.ToString();
+            i--;
+        }
+        text.text = "";
 
+    }
     IEnumerator SpawnBall()
 		{
         while (true)
         {
+            yield return new WaitForSeconds(3f);
             if (Game.SingletonObj.CountBalls <= 6)
             {
                 var t = Instantiate(BouncePrefab, new Vector3(0, 0f, 0), Quaternion.identity);
                 t.layer = 9;
                 Game.SingletonObj.CountBalls++;
             }
-            yield return new WaitForSeconds(6f);
+            
         }
         }
 
