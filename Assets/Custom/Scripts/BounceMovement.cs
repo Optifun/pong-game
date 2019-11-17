@@ -15,15 +15,19 @@ public class BounceMovement : MonoBehaviour
         //сообщаем шару начальную скорость
         var velocity = 0.4f;// Random.Range(0f, 1f);
         Vector3 way;
+        int r = Random.Range(0, 4);
+        float offset = 0;
         if (Game.SingletonObj.TotalPlayers == 4)
         {
-            var angle = Mathf.Deg2Rad * Random.Range(-80f,80f);
+            var angle = Mathf.Deg2Rad * (Random.Range(30f,120f)+r*90);
             way = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)).normalized;
         }
         else
         {
-            var angle = Mathf.Deg2Rad*(Random.Range(-80f,10f))*4;
-            way = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)).normalized;
+            offset = (r > 1) ? 0 : 1;
+            var angle = Random.Range(-60f,60f)+offset*180;
+            Debug.Log(angle);
+            way = new Vector3(Mathf.Cos(Mathf.Deg2Rad * angle), 0, Mathf.Sin(Mathf.Deg2Rad * angle)).normalized;
         }
         rb.AddForce(way * velocity);
         
@@ -33,7 +37,6 @@ public class BounceMovement : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-        Debug.Log(timer);
         if (timer >= 30)
             Destroy(gameObject);
     }

@@ -52,8 +52,8 @@ public class Game : Singleton<Game>
 		{
 		BasePlayer t = FindByID(id);
 		t.Score += 1;
-        var r = Random.Range(0, 1);
-        if (CountBalls <= 6 && r ==0)
+        var r = Random.Range(0f, 1f);
+        if (CountBalls <= 6 && r>0.5f)
         {
             spawBall();
             CountBalls++;
