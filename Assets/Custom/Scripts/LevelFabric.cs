@@ -105,7 +105,9 @@ public class LevelFabric : Singleton<LevelFabric>
 			bars[i].Player = players[i];
 			players[i].color = colors[i];
 			}
-        if(plCount+botCount == 2)
+		SP3.SetActive(true);
+		SP4.SetActive(true);
+		if (plCount+botCount == 2)
         {
             Instantiate(WallPrefab, new Vector3(-3.5f, 1.2f, -4f), Quaternion.Euler(0, 0, 0));
             Instantiate(WallPrefab, new Vector3(-3.5f, 1.2f, 4f), Quaternion.Euler(0, 0, 0));

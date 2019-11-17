@@ -26,6 +26,7 @@ public class Game : Singleton<Game>
 
 	public void StartGameScene ()
 		{
+		BasePlayer.PlayersCount = 1;
 		scores = GameObject.Find("Canvas").transform.Find("Scores").GetComponentsInChildren<Text>();
 		players = LevelFabric.SingletonObj.CreateLevel(PlayerCount, BotCount);
         TotalPlayers = PlayerCount + BotCount;
