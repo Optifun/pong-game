@@ -2,19 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BounceMovement : MonoBehaviour
+/// <summary>
+/// Класс, управляющий поведением шара
+/// </summary>
+public class BallMovement : MonoBehaviour
 {
-    Rigidbody rb;
+    /// <summary>
+    /// Компонент физики мяча
+    /// </summary>
+    Rigidbody ballRigidBody;
+
+    /// <summary>
+    /// Префаб эффекта столковения
+    /// </summary>
     public GameObject Hit;
-    //Скорость шара
+
+    /// <summary>
+    /// Скорость мяча (постоянная)
+    /// </summary>
     public float constBallSpeed = 7f;
-    float timer;
-    // Start is called before the first frame update
+
     void Start()
     {
-        timer = 0;
-        rb = GetComponent<Rigidbody>();
-        //сообщаем шару начальную скорость
+        ballRigidBody = GetComponent<Rigidbody>();
         Vector3 way;
         int r = Random.Range(0, 4);
         float offset = 0;
@@ -27,29 +37,18 @@ public class BounceMovement : MonoBehaviour
         {
             offset = (r > 1) ? 0 : 1;
             var angle = Random.Range(-60f,60f)+offset*180;
-            //Debug.Log(angle);
             way = new Vector3(Mathf.Cos(Mathf.Deg2Rad * angle), 0, Mathf.Sin(Mathf.Deg2Rad * angle)).normalized;
         }
-        rb.AddForce(way * constBallSpeed, ForceMode.VelocityChange);
+        //сообщаем шару начальную скорость
+        ballRigidBody.AddForce(way * constBallSpeed, ForceMode.VelocityChange);
         
     }
 
     void FixedUpdate()
     {
        //Контроль скорости мяча
-        //Debug.Log(rb.velocity.magnitude);
-        if (rb.velocity.magnitude != constBallSpeed)
-        {
-            rb.velocity = rb.velocity.normalized * constBallSpeed;
-        }
-    }
-    
-    void Update()
-    {
-        //Уничтожение шара по истечении времени
-        timer += Time.deltaTime;
-        if (timer >= 30)
-            Destroy(gameObject);
+        if (ballRigidBody.velocity.magnitude != constBallSpeed)
+            ballRigidBody.velocity = ballRigidBody.velocity.normalized * constBallSpeed;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -61,9 +60,12 @@ public class BounceMovement : MonoBehaviour
 
             Vector3 forward = bar.transform.right;
             Vector3 left = bar.GetComponent<PlayerBar>().Track.Left;
+            //направлеям вектор скорости платформы вдоль её оси движения
             Vector3 barSpeed = Vector3.Dot(bar.velocity,left)*left;
             Vector3 ballSpeed = ball.velocity;
             ball.velocity += barSpeed.normalized * Vector3.Dot(forward, ballSpeed);
+
+            //LEGACY
             /*
             // Угол альфа между нормалью и шаром, угол падения
             float alphaAngle = Vector3.Angle(forward, ballSpeed);
@@ -85,6 +87,7 @@ public class BounceMovement : MonoBehaviour
             Vector3 localBallVelocity = (Vector3.Dot(ball.velocity, left)+ deltaBallSpeed) * left;
             ball.velocity = localBallVelocity;
             */
+
             gameObject.GetComponent<MeshRenderer>().material.color = collision.gameObject.GetComponent<MeshRenderer>().material.color;
 
             var hit = Instantiate(Hit,new Vector3(collision.contacts[0].point.x,
