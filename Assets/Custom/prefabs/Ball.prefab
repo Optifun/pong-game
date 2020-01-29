@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 6141448755673956201}
   - component: {fileID: 6141448755673956202}
   - component: {fileID: 6141448755673956203}
-  - component: {fileID: 6141448755673956204}
+  - component: {fileID: 5072452616439485647}
   m_Layer: 0
-  m_Name: Bounce
+  m_Name: Ball
   m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -101,7 +101,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6141448755673956205}
   serializedVersion: 2
-  m_Mass: 0.001
+  m_Mass: 0.00001
   m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 0
@@ -109,7 +109,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 2
---- !u!114 &6141448755673956204
+--- !u!114 &5072452616439485647
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -122,3 +122,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Hit: {fileID: 8990401873819581054, guid: 6e3256f782d18fe4681e2468d09ea42b, type: 3}
+  constBallSpeed: 7
