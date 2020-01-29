@@ -590,7 +590,7 @@ GameObject:
   - component: {fileID: 289148722}
   - component: {fileID: 289148721}
   m_Layer: 5
-  m_Name: Text
+  m_Name: 3SecondsToStartRound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

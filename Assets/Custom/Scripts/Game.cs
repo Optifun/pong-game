@@ -28,7 +28,7 @@ public class Game : Singleton<Game>
 		{
 		BasePlayer.PlayersCount = 1;
 		scores = GameObject.Find("Canvas").transform.Find("Scores").GetComponentsInChildren<Text>();
-		players = LevelFabric.SingletonObj.CreateLevel(PlayerCount, BotCount);
+		players = LevelFactory.SingletonObj.CreateLevel(PlayerCount, BotCount);
         TotalPlayers = PlayerCount + BotCount;
 		UIInGameManager.SingletonObj.TimeIsUp += GameOver; 
 		foreach ( var item in players )

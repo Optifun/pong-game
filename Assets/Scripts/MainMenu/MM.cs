@@ -34,7 +34,6 @@ public class MM : MonoBehaviour
 
     public void AddPlus()
     {
-        int c;
         botval = max;
         Plus.enabled = false;
         Minus.enabled = true;
@@ -42,7 +41,6 @@ public class MM : MonoBehaviour
     }
     public void AddMinus()
     {
-        int c;
         botval = min;
         Plus.enabled = true;
         Minus.enabled = false;

@@ -58,7 +58,7 @@ public abstract class BasePlayer : MonoBehaviour
 		Bar = _bar;
 		track = Bar.Track;
 		identificator = PlayersCount++;
-        _bar.GetComponent<MeshRenderer>().material.color = LevelFabric.GetColor(num-1);    //Установка уникального цвета игрока
+        _bar.GetComponent<MeshRenderer>().material.color = LevelFactory.GetColor(num-1);    //Установка уникального цвета игрока
 
 		playerName = _playerName;
 		score = _score;
