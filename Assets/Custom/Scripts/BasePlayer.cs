@@ -8,6 +8,7 @@ public abstract class BasePlayer : MonoBehaviour
 	{
 	public static int PlayersCount = 1;
 	public delegate void playerInfo (string name, int id);
+    //Для сети
 	event playerInfo PlayerJoined;
 	event playerInfo NameChanged;
     public Color color;
@@ -58,7 +59,7 @@ public abstract class BasePlayer : MonoBehaviour
 		Bar = _bar;
 		track = Bar.Track;
 		identificator = PlayersCount++;
-        _bar.GetComponent<MeshRenderer>().material.color = LevelFabric.GetColor(num-1);    //Установка уникального цвета игрока
+        _bar.GetComponent<MeshRenderer>().material.color = LevelFactory.SingletonObj.GetColor(num-1);    //Установка уникального цвета игрока
 
 		playerName = _playerName;
 		score = _score;
