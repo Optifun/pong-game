@@ -2330,7 +2330,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b751cf0d680e0a6459e340d2b7708bf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 289148721}
+  freezeTimer: {fileID: 289148721}
+  colors:
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 0, g: 0, b: 1, a: 1}
+  - {r: 0, g: 1, b: 0, a: 1}
+  - {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   TrackPrefab: {fileID: 6542322056664648633, guid: 4bcb03920e3eb9542ac30d43cf9e4e5b,
     type: 3}
   BarPrefab: {fileID: 5322621013574622987, guid: db76d728598b62944bbd60931a33d457,
@@ -2344,10 +2349,6 @@ MonoBehaviour:
   - {fileID: 489818476}
   - {fileID: 2022185042}
   - {fileID: 1553137830}
-  SP1: {fileID: 1013719148}
-  SP2: {fileID: 489818476}
-  SP3: {fileID: 2022185042}
-  SP4: {fileID: 1553137830}
 --- !u!1 &2022185042
 GameObject:
   m_ObjectHideFlags: 0

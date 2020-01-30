@@ -59,7 +59,7 @@ public class PlayerBar : MonoBehaviour
 	/// <summary>
 	/// Трение палки
 	/// </summary>
-	float friction = 0.9f;
+	float friction = 0.8f;
 	#endregion
 
 	public void Initialize(BarTrack _track, Vector3 front, float yRotation)
@@ -72,31 +72,20 @@ public class PlayerBar : MonoBehaviour
 		transform.position = Track.TrackCenter;
 		}
 
-	// Use this for initialization
 	void Start ()
 		{
 		body = GetComponent<Rigidbody>();
-		body.drag = friction;
 		}
 
-	// Update is called once per frame
-	void Update ()
+	void FixedUpdate ()
 		{
-
-		if ( Speed < 0.5f )
-			body.velocity = Vector3.zero;
-		else
-			{
-			body.AddForce(-body.velocity.normalized*friction, ForceMode.Impulse);
-			}
+		body.velocity = ( Speed < 0.5f ) ? Vector3.zero : body.velocity*friction;
 		}
 
 	public void MoveLeft()
 		{
-		if (Speed<=_maxspeed)
-			{
+		if ( Speed <= _maxspeed )
 			body.AddForce(Track.Left*acceleration, ForceMode.Impulse);
-			}
 		}
 
 	public void MoveRight()
