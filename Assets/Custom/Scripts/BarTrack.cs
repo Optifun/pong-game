@@ -7,7 +7,7 @@ using System.Collections;
 public class BarTrack : MonoBehaviour
 	{
 	#region Variables
-	public delegate void ScoreChanged (int id);
+	public delegate void ScoreChanged (int id, GameObject ball);
 	public event ScoreChanged Goal;
 	/// <summary>
 	/// Левая граница трека
@@ -62,14 +62,10 @@ public class BarTrack : MonoBehaviour
 
 	private void OnTriggerExit (Collider collision)
 		{
-		if (collision.gameObject.tag=="Ball")
+		if (collision.tag=="Ball")
 			{
 			var t = player.Player;
-			if (Goal!=null)
-				Goal.Invoke(t.identificator);
-			Destroy(collision.gameObject,2f);
-            Game.SingletonObj.CountBalls--;
-
+			Goal?.Invoke(t.identificator, collision.gameObject);
             }
 		}
 

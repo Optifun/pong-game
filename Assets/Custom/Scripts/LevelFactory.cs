@@ -1,51 +1,104 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 /// <summary>
 /// Фабрика контролирующая создание объектов
 /// </summary>
 public class LevelFactory : Singleton<LevelFactory>
 	{
-	BasePlayer[] players;   //игроки
-	PlayerBar[] bars;       //платформы
+    #region Variables
+
+    /// <summary>
+    /// Игроки и боты
+    /// </summary>
+    BasePlayer[] players;
+
+    /// <summary>
+    /// Управляемые платформы игроков либо ботов
+    /// </summary>
+	PlayerBar[] bars;
+
+    /// <summary>
+    /// Ворота кроме колонн, управляет и следит за платформой
+    /// </summary>
 	BarTrack[] tracks;
-	GameObject[] borders;
+
+    /// <summary>
+    /// Колонны по углам
+    /// </summary>
+	GameObject[] columns;
+
+    /// <summary>
+    /// Максимальное количество мячей, одновременно присутствующих на поле
+    /// </summary>
+	public int MaxBalls { get; set; } = 6;
+
+    /// <summary>
+    /// Задержка в секундах между появлением нового мяча
+    /// </summary>
+    public float SpawnDelay { get; set; } = 3;
+
+    /// <summary>
+    /// Время до старта матча
+    /// </summary>
+    public int FreezeTime { get; set; } = 3;
+
+    /// <summary>
+    /// Скорость мяча (постоянная)
+    /// </summary>
+    public float BallSpeed { get; set; } = 7f;
+
+    /// <summary>
+    /// Центр игрового поля
+    /// </summary>
 	Vector3 FieldCenter;
 
-	public int MaxBalls { get; set; } = 6;
-    public float SpawnDelay { get; set; } = 3;
-    public int FreezeTime { get; set; } = 3;
-    public float ballSpeed { get; set; } = 7f;
+    /// <summary>
+    /// Мячи
+    /// </summary>
+    List<GameObject> Balls;
 
-    public Text text;
-	static Color[] colors = {Color.red,Color.blue,Color.green,Color.yellow}; //цвета платформ
-    public static Color GetColor(int id) { return colors[id];  }
+    /// <summary>
+    /// Количество мячей в данный момент
+    /// </summary>
+    int CountBalls { get { return Balls?.Count ?? 0; } }
+
+    public Text freezeTimer;
+	public Color[] colors = {Color.red,Color.blue,Color.green,Color.yellow}; //цвета платформ
+    //*Под сомнением
+    public Color GetColor(int id) { return colors[id];  }
+
     //префабы
 	public GameObject TrackPrefab;
 	public GameObject BarPrefab;
-    public GameObject BouncePrefab;
+    public GameObject BallPrefab;
     public GameObject WallPrefab;
+
     //поля-счетчики
-    public GameObject SP1;
-    public GameObject SP2;
-    public GameObject SP3;
-    public GameObject SP4;
-    //
+    //*Массив
+    public GameObject[] scoreForPlayer = new GameObject[4];
+    //*Изменить для нового положения камеры
 	Vector3[] faces = { Vector3.right, Vector3.left, Vector3.back, Vector3.forward };
+    //*Между какими стенками располагается плита
 	Vector2[] places = { new Vector2(1, 2), new Vector2(3, 4), new Vector2(1, 4), new Vector2(3, 2) };
+    //*Сделать универсальным в цикле
 	float[] rotations = { 0, 180, 90, -90 };
+
+    #endregion
 
 	void Awake()
 		{
 		//нахожу на карте коллонны
-		borders = new GameObject[4];
+		columns = new GameObject[4];
 		FieldCenter = Vector3.zero;
-		for ( int i = 1; i < 5; i++ )
-		{
-			var obj = transform.Find($"W{i}");
+		for ( int i = 0; i < 4; i++ )
+		    {
+			var obj = transform.Find($"W{i+1}");
 			FieldCenter += obj.position;
-			borders[i-1] = obj.gameObject;
-		}
+			columns[i] = obj.gameObject;
+		    }
         //цвета платформ
 		colors[0] = new Color(0.8313726f, 0.2627451f, 0.2f);
 		colors[1] = new Color(0.2392157f, 0.6039216f, 1);
@@ -56,13 +109,14 @@ public class LevelFactory : Singleton<LevelFactory>
 
 	private void Start ()
 		{
+        Balls = new List<GameObject>();
 		Game.SingletonObj.StartGameScene();
 		}
 
     public void BackToMenu()
         {
-        Game.SingletonObj.CountBalls = 0;
-        Application.LoadLevel("MainMenu");
+        Balls.Clear();
+        SceneManager.LoadScene("MainMenu");
         }
 
 	/// <summary>
@@ -77,21 +131,23 @@ public class LevelFactory : Singleton<LevelFactory>
 	/// <summary>
 	/// Создает и расставляет палки и треки
 	/// </summary>
-	/// <param name="plCount"></param>
-	/// <param name="botCount"></param>
+	/// <param name="plCount">Количество игроков</param>
+	/// <param name="botCount">Количество ботов</param>
 	public BasePlayer[] CreateLevel (int plCount, int botCount)
 		{
-		//выделяю память
-		bars = new PlayerBar[plCount + botCount];
-		players = new BasePlayer[plCount+botCount];
-		tracks = new BarTrack[plCount + botCount];
-		for ( int i = 0; i < plCount + botCount; i++ )
+        //выделяю память
+        var TotalCount = plCount + botCount;
+        bars = new PlayerBar[TotalCount];
+		players = new BasePlayer[TotalCount];
+		tracks = new BarTrack[TotalCount];
+        
+		for ( int i = 0; i < TotalCount; i++ )
 			{
 			//создаю объекты треков и их инициализация позицией и поворотом
 			tracks[i] = Instantiate(TrackPrefab).GetComponent<BarTrack>();
 			var lBorder = places[i].x-1;
 			var rBorder = places[i].y-1;
-			tracks[i].Initialize(borders[(int)lBorder].transform.position, borders[(int)rBorder].transform.position, rotations[i]);
+			tracks[i].Initialize(columns[(int)lBorder].transform.position, columns[(int)rBorder].transform.position, rotations[i]);
 
 			//создание палок и их инициализация
 			bars[i] = Instantiate(BarPrefab).GetComponent<PlayerBar>();
@@ -109,47 +165,63 @@ public class LevelFactory : Singleton<LevelFactory>
 			players[i].color = colors[i];
 			}
 
-		SP3.SetActive(true);
-		SP4.SetActive(true);
-		if (plCount+botCount == 2)
+        scoreForPlayer[2].SetActive(true);
+        scoreForPlayer[3].SetActive(true);
+        if (TotalCount == 2)
             {
             Instantiate(WallPrefab, new Vector3(-3.5f, 1.2f, -4f), Quaternion.Euler(0, 0, 0));
             Instantiate(WallPrefab, new Vector3(-3.5f, 1.2f, 4f), Quaternion.Euler(0, 0, 0));
-            SP3.SetActive(false);
-            SP4.SetActive(false);
-            }
+            scoreForPlayer[2].SetActive(false);
+            scoreForPlayer[3].SetActive(false);
+            //SP3.SetActive(false);
+            //SP4.SetActive(false);
+        }
         StartCoroutine(FreezeTimerStart());
         return players;
-		}
-	/// <summary>
-	/// Убирает игровые объекты
-	/// </summary>
-	public void DestroyLevel()
-		{
-
 		}
 
     IEnumerator FreezeTimerStart()
         {
         for (int i = FreezeTime; i > 0; i--)
-        {
-            text.text = i.ToString();
+            {
+            freezeTimer.text = i.ToString();
             yield return new WaitForSeconds(1f);
-        }
-        text.text = "";
+            }
+        freezeTimer.text = "";
         StartCoroutine(SpawnBall());
         StartCoroutine(UIInGameManager.SingletonObj.GameTime(120));
         }
 
+    IEnumerator SpawnBall()
+		{
+        while (true)
+            {
+            yield return new WaitForSeconds(3f);
+            Spawn();
+            }
+        }
+
+    /// <summary>
+    /// Возникает при попадании мяча в ворота
+    /// </summary>
+    /// <param name="id">Идентификатор игрока</param>
+    /// <param name="ball">Объект мяча</param>
+    public void OnGoal(int id, GameObject ball)
+        {
+        Destroy(ball, 2f);
+        Balls.Remove(ball);
+        // с вероятностью 50% спавнится новый мяч
+        if (Random.Range(0f, 1f) > 0.5f)
+            Spawn();
+        }
+
     void Spawn()
         {
-        if (Game.SingletonObj.CountBalls <= 6)
+        if (CountBalls <= MaxBalls)
             {
-            var ball = Instantiate(BouncePrefab, new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;
+            var ball = Instantiate(BallPrefab, new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;
             ball.layer = 9;
-            Game.SingletonObj.CountBalls++;
-            Debug.Log(Game.SingletonObj.CountBalls);
-
+            Balls.Add(ball);
             Vector3 ballDirection;
             int rand = Random.Range(0, 4);
             if (Game.SingletonObj.TotalPlayers == 4)
@@ -163,29 +235,11 @@ public class LevelFactory : Singleton<LevelFactory>
                 var angle = Random.Range(-60f, 60f) + rand * 180;
                 ballDirection = new Vector3(Mathf.Cos(Mathf.Deg2Rad * angle), 0, Mathf.Sin(Mathf.Deg2Rad * angle)).normalized;
                 }
-            Debug.Log(ballDirection);
             BallMovement behaviour = ball.GetComponent<BallMovement>();
-            behaviour.InitBall(ballDirection * ballSpeed);
-            //Rigidbody ballRigidBody = ball.GetComponent<Rigidbody>();
-            //сообщаем шару начальную скорость
-            //ballRigidBody.velocity = Vector3.forward * BallSpeed;
-            //ballRigidBody.AddForce(Vector3.forward, ForceMode.Impulse);
-        }
-        }
-
-    IEnumerator SpawnBall()
-		{
-        while (true)
-            {
-            yield return new WaitForSeconds(3f);
-            Spawn();
+            //задаём начальную траекторию мячу
+            behaviour.InitBall(ballDirection * BallSpeed);
             }
         }
 
-	// Update is called once per frame
-	void Update ()
-		{
-
-		}
 
 	}
