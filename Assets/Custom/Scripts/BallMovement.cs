@@ -20,41 +20,36 @@ public class BallMovement : MonoBehaviour
     /// <summary>
     /// Скорость мяча (постоянная)
     /// </summary>
-    public float constBallSpeed = 7f;
+    float constBallSpeed = 7f;
+
+    /// <summary>
+    /// Начальное направление мяча
+    /// </summary>
+    Vector3 initialVelocity;
+
+    public void InitBall(Vector3 velocity)
+        {
+        constBallSpeed = velocity.magnitude;
+        initialVelocity = velocity;
+        }
 
     void Start()
-    {
+        {
         ballRigidBody = GetComponent<Rigidbody>();
-        Vector3 way;
-        int r = Random.Range(0, 4);
-        float offset = 0;
-        if (Game.SingletonObj.TotalPlayers == 4)
-        {
-            var angle = Mathf.Deg2Rad * (Random.Range(30f,120f)+r*90);
-            way = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)).normalized;
+        ballRigidBody.velocity = initialVelocity;
         }
-        else
-        {
-            offset = (r > 1) ? 0 : 1;
-            var angle = Random.Range(-60f,60f)+offset*180;
-            way = new Vector3(Mathf.Cos(Mathf.Deg2Rad * angle), 0, Mathf.Sin(Mathf.Deg2Rad * angle)).normalized;
-        }
-        //сообщаем шару начальную скорость
-        ballRigidBody.AddForce(way * constBallSpeed, ForceMode.VelocityChange);
-        
-    }
 
     void FixedUpdate()
-    {
-       //Контроль скорости мяча
+        {
+        //Контроль скорости мяча
         if (ballRigidBody.velocity.magnitude != constBallSpeed)
             ballRigidBody.velocity = ballRigidBody.velocity.normalized * constBallSpeed;
-    }
+        }
 
     private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Bar"))
         {
+        if (collision.gameObject.CompareTag("Bar"))
+            {
             Rigidbody bar = collision.rigidbody;
             Rigidbody ball = gameObject.GetComponent<Rigidbody>();
 
@@ -94,6 +89,6 @@ public class BallMovement : MonoBehaviour
                                         collision.contacts[0].point.y,
                                         collision.contacts[0].point.z),Quaternion.identity);    //спавн хита (эффект удара)
             Destroy(hit, 0.5f);
+            }
         }
-    }
 }

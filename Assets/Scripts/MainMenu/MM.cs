@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MM : MonoBehaviour
@@ -25,7 +26,7 @@ public class MM : MonoBehaviour
     {
 		Game.SingletonObj.PlayerCount = (int)PlayerSlider.value;
 		Game.SingletonObj.BotCount = botval;
-        Application.LoadLevel("SampleScene");
+        SceneManager.LoadScene("SampleScene");
         //Передача данных в игру!!!
         //PlayerSlider.minValue = 1;
         //PlayerSlider.value = 1;
@@ -34,7 +35,6 @@ public class MM : MonoBehaviour
 
     public void AddPlus()
     {
-        int c;
         botval = max;
         Plus.enabled = false;
         Minus.enabled = true;
@@ -42,7 +42,6 @@ public class MM : MonoBehaviour
     }
     public void AddMinus()
     {
-        int c;
         botval = min;
         Plus.enabled = true;
         Minus.enabled = false;
