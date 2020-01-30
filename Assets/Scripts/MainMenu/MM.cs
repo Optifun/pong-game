@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class MM : MonoBehaviour
 {
-
     public Slider PlayerSlider;
     public Text PlayerInfoText;
     public Text BotInfoText;
@@ -15,11 +14,10 @@ public class MM : MonoBehaviour
     private int max = 3;
     private int min = 1;
     private int botval = 1;
-    // Start is called before the first frame update
+
     void Start()
     {
         PlayerSlider.onValueChanged.AddListener(SliderChanged);
-        //BotSlider.onValueChanged.AddListener(BotSliderChanged);
     }
 
     public void StartGame()
@@ -27,10 +25,6 @@ public class MM : MonoBehaviour
 		Game.SingletonObj.PlayerCount = (int)PlayerSlider.value;
 		Game.SingletonObj.BotCount = botval;
         SceneManager.LoadScene("SampleScene");
-        //Передача данных в игру!!!
-        //PlayerSlider.minValue = 1;
-        //PlayerSlider.value = 1;
-        SliderChanged(1);
     }
 
     public void AddPlus()
@@ -101,11 +95,5 @@ public class MM : MonoBehaviour
         }
         PlayerInfoText.text = "" + PlayerSlider.value;
         BotInfoText.text = "" + botval;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }
