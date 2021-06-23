@@ -1,22 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Singleton<T>:MonoBehaviour where T:MonoBehaviour
-	{
-	static T instance;
-	public static T SingletonObj
-		{
-		get
-			{
-			if ( instance == null )
-				instance = GameObject.FindObjectOfType<T>();
-			return instance;
-			}
-		set
-			{
-			if (value!=null)
-				instance = value;
-			}
-		}
+namespace Utils
+{
+    public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+    {
+        private static T _instance;
+
+        public static T SingletonObj
+        {
+            get
+            {
+                if (_instance == null)
+                    _instance = GameObject.FindObjectOfType<T>();
+                return _instance;
+            }
+        }
+    }
 }

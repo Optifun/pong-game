@@ -1,46 +1,32 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 
-public class UIInGameManager : Singleton<UIInGameManager>
+namespace UI
 {
-	public delegate void TimerEvent ();
-	public event TimerEvent TimeIsUp;
-    public Text Time;
-    //3left
-    //4right
-    //1bottom
-    //2top
-    // Start is called before the first frame update
-    void Start()
+    public class UIInGameManager : Singleton<UIInGameManager>
     {
-        //StartCoroutine(GameTime(120));
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        public delegate void TimerEvent();
         
-    }
+        public event TimerEvent TimeIsUp;
 
-    public IEnumerator GameTime(int seconds)
-    {
-		while ( true )
-			{
-			yield return new WaitForSeconds(1f);
-			seconds--;
-			if ( seconds % 60 < 10 )
-				{
-				Time.text = seconds / 60 + ":0" + seconds % 60;
-				}
-			else
-				Time.text = seconds / 60 + ":" + seconds % 60;
-			if (seconds==0)
-				{
-				TimeIsUp();
-				yield return null;
-				}
-			}
+        public Text Time;
+
+        public IEnumerator GameTime(int seconds)
+        {
+            while (seconds > 0)
+            {
+                yield return new WaitForSeconds(1f);
+                seconds--;
+                if (seconds % 60 < 10)
+                    Time.text = seconds / 60 + ":0" + seconds % 60;
+                else
+                    Time.text = seconds / 60 + ":" + seconds % 60;
+            }
+
+            TimeIsUp?.Invoke();
+            yield return null;
+        }
     }
 }

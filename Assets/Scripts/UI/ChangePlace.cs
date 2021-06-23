@@ -1,35 +1,33 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class ChangePlace : MonoBehaviour
+namespace UI
 {
-
-    public Canvas GeneralCanvas;
-    public Canvas PlayerCanvas;
-
-    // Start is called before the first frame update
-    public void SetPlace()
+    public class ChangePlace : MonoBehaviour
     {
-        GeneralCanvas.enabled = false;
-        PlayerCanvas.enabled = true;
-    }
+        public Canvas GeneralCanvas;
+        public Canvas PlayerCanvas;
+    
+        public void SetPlace()
+        {
+            GeneralCanvas.enabled = false;
+            PlayerCanvas.enabled = true;
+        }
 
-    public void GoBack()
-    {
-        GeneralCanvas.enabled = true;
-        PlayerCanvas.enabled = false;
-    }
+        public void GoBack()
+        {
+            GeneralCanvas.enabled = true;
+            PlayerCanvas.enabled = false;
+        }
 
-    public void Exit()
-    {
-        Application.Quit();
-    }
+        public void Exit()
+        {
+            Application.Quit();
+        }
 
-        // Update is called once per frame
-        void Start()
-    {
-        GeneralCanvas.enabled = true;
-        PlayerCanvas.enabled = false;
+        private void Start()
+        {
+            GeneralCanvas.enabled = true;
+            PlayerCanvas.enabled = false;
+        }
     }
 }

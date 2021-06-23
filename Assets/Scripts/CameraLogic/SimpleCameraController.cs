@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace UnityTemplateProjects
+namespace CameraLogic
 {
     public class SimpleCameraController : MonoBehaviour
     {
