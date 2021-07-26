@@ -7,7 +7,7 @@ namespace Ball
     [RequireComponent(typeof(BallCollision))]
     [RequireComponent(typeof(BallVFX))]
     [RequireComponent(typeof(BallMovement))]
-    public class Ball : MonoBehaviour
+    public class BallController : MonoBehaviour
     {
         public BallCollision Collision;
         public BallVFX Effects;
