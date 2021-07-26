@@ -4,26 +4,26 @@ using UnityEngine;
 
 namespace Ball
 {
-    [RequireComponent(typeof(Collider))]
+    [RequireComponent(typeof(Rigidbody))]
     public class BallCollision : MonoBehaviour
     {
         public event Action<PlayerBar> PlayerCollided;
+        public event Action<PlayerBar> GateCollided;
+
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.gameObject.CompareTag("Bar"))
+            GameObject entity = collision.gameObject;
+            if (entity.CompareTag("Bar"))
             {
-                Rigidbody bar = collision.rigidbody;
-                Rigidbody ball = gameObject.GetComponent<Rigidbody>();
-                PlayerBar playerBar = collision.gameObject.GetComponent<PlayerBar>();
+                PlayerBar playerBar = entity.GetComponent<PlayerBar>();
                 PlayerCollided?.Invoke(playerBar);
+            }
 
-                Vector3 left = playerBar.Track.Left;
-                Vector3 forward = bar.transform.right;
-                //направлеям вектор скорости платформы вдоль её оси движения
-                Vector3 barSpeed = Vector3.Dot(bar.velocity, left) * left;
-                Vector3 ballSpeed = ball.velocity;
-                ball.velocity += barSpeed.normalized * Vector3.Dot(forward, ballSpeed);
+            if (entity.CompareTag("DeadZone"))
+            {
+                BarTrack barTrack = entity.GetComponent<BarTrack>();
+                GateCollided?.Invoke(barTrack.player);
             }
         }
     }

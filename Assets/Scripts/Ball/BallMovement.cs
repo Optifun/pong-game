@@ -20,27 +20,46 @@ namespace Ball
         /// <summary>
         /// Компонент физики мяча
         /// </summary>
-        public Rigidbody BallRigidBody;
+        public Rigidbody Rigidbody;
+
+        public BallCollision Collision;
 
         public MeshRenderer MeshRenderer;
 
         private void Start()
         {
-            BallRigidBody = GetComponent<Rigidbody>();
-            MeshRenderer = GetComponent<MeshRenderer>();
-        }
-
-        public void Launch(Vector3 velocity)
-        {
-            ConstBallSpeed = velocity.magnitude;
-            BallRigidBody.velocity = velocity;
+            Collision.PlayerCollided += AccelerateBall;
         }
 
         public void FixedUpdate()
         {
             //Контроль скорости мяча
-            if (Math.Abs(BallRigidBody.velocity.magnitude - ConstBallSpeed) > SpeedTolerance)
-                BallRigidBody.velocity = BallRigidBody.velocity.normalized * ConstBallSpeed;
+            if (Math.Abs(Rigidbody.velocity.magnitude - ConstBallSpeed) > SpeedTolerance)
+                Rigidbody.velocity = Rigidbody.velocity.normalized * ConstBallSpeed;
+        }
+
+        private void OnDestroy()
+        {
+            Collision.PlayerCollided -= AccelerateBall;
+        }
+
+        public void Launch(Vector3 velocity)
+        {
+            ConstBallSpeed = velocity.magnitude;
+            Rigidbody.velocity = velocity;
+        }
+
+        private void AccelerateBall(PlayerBar bar)
+        {
+            var barPysics = bar.GetComponent<Rigidbody>();
+
+            Vector3 barLookDirection = bar.transform.forward;
+            Vector3 barMovement = barPysics.velocity.normalized;
+
+            Vector3 horizontalAcceleration = Vector3.Project(Rigidbody.velocity, barMovement);
+            Vector3 verticalAcceleration = -Vector3.Project(Rigidbody.velocity, barLookDirection);
+
+            Rigidbody.velocity = Rigidbody.velocity + (horizontalAcceleration + verticalAcceleration);
         }
     }
 }
