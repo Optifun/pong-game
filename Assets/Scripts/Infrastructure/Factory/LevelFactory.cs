@@ -245,7 +245,7 @@ namespace Infrastructure.Factory
 
                 BallMovement behaviour = ball.GetComponent<BallMovement>();
                 //задаём начальную траекторию мячу
-                behaviour.InitBall(ballDirection * BallSpeed);
+                behaviour.Launch(ballDirection * BallSpeed);
             }
         }
     }

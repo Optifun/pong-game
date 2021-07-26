@@ -1,4 +1,5 @@
-﻿using Bar;
+﻿using System;
+using Bar;
 using UnityEngine;
 
 namespace Ball
@@ -6,71 +7,40 @@ namespace Ball
     /// <summary>
     /// Класс, управляющий поведением шара
     /// </summary>
+    [RequireComponent(typeof(BallCollision))]
     public class BallMovement : MonoBehaviour
     {
-        /// <summary>
-        /// Префаб эффекта столковения
-        /// </summary>
-        public GameObject Hit;
-
-        /// <summary>
-        /// Компонент физики мяча
-        /// </summary>
-        private Rigidbody _ballRigidBody;
+        private const float SpeedTolerance = 0.05f;
 
         /// <summary>
         /// Скорость мяча (постоянная)
         /// </summary>
-        private float _constBallSpeed = 7f;
+        public float ConstBallSpeed = 7f;
 
         /// <summary>
-        /// Начальное направление мяча
+        /// Компонент физики мяча
         /// </summary>
-        private Vector3 _initialVelocity;
+        public Rigidbody BallRigidBody;
 
-        private MeshRenderer _meshRenderer;
-
-        public void InitBall(Vector3 velocity)
-        {
-            _constBallSpeed = velocity.magnitude;
-            _initialVelocity = velocity;
-        }
+        public MeshRenderer MeshRenderer;
 
         private void Start()
         {
-            _ballRigidBody = GetComponent<Rigidbody>();
-            _meshRenderer = gameObject.GetComponent<MeshRenderer>();
-            _ballRigidBody.velocity = _initialVelocity;
+            BallRigidBody = GetComponent<Rigidbody>();
+            MeshRenderer = GetComponent<MeshRenderer>();
+        }
+
+        public void Launch(Vector3 velocity)
+        {
+            ConstBallSpeed = velocity.magnitude;
+            BallRigidBody.velocity = velocity;
         }
 
         public void FixedUpdate()
         {
             //Контроль скорости мяча
-            if (_ballRigidBody.velocity.magnitude != _constBallSpeed)
-                _ballRigidBody.velocity = _ballRigidBody.velocity.normalized * _constBallSpeed;
-        }
-
-        private void OnCollisionEnter(Collision collision)
-        {
-            if (collision.gameObject.CompareTag("Bar"))
-            {
-                Rigidbody bar = collision.rigidbody;
-                Rigidbody ball = gameObject.GetComponent<Rigidbody>();
-
-                Vector3 forward = bar.transform.right;
-                Vector3 left = bar.GetComponent<PlayerBar>().Track.Left;
-                //направлеям вектор скорости платформы вдоль её оси движения
-                Vector3 barSpeed = Vector3.Dot(bar.velocity, left) * left;
-                Vector3 ballSpeed = ball.velocity;
-                ball.velocity += barSpeed.normalized * Vector3.Dot(forward, ballSpeed);
-
-                _meshRenderer.material.color =
-                    collision.gameObject.GetComponent<MeshRenderer>().material.color;
-
-                //спавн хита (эффект удара)
-                GameObject hit = Instantiate(Hit, collision.contacts[0].point, Quaternion.identity);
-                Destroy(hit, 0.5f);
-            }
+            if (Math.Abs(BallRigidBody.velocity.magnitude - ConstBallSpeed) > SpeedTolerance)
+                BallRigidBody.velocity = BallRigidBody.velocity.normalized * ConstBallSpeed;
         }
     }
 }
