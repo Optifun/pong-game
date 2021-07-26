@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 8928754731251522127}
   - component: {fileID: 4620550730859129862}
   - component: {fileID: 7799036498928200543}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BallPrefab
   m_TagString: Ball
   m_Icon: {fileID: 0}
