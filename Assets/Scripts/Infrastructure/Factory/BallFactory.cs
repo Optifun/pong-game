@@ -17,7 +17,6 @@ namespace Infrastructure.Factory
         public GameObject BallPrefab;
 
         public int MaxBalls = 6;
-        public float SpawnDelay = 3;
         public float BallSpeed = 7f;
 
         private int CountBalls => _balls?.Count ?? 0;
@@ -38,17 +37,7 @@ namespace Infrastructure.Factory
             return _ballDirection.Current;
         }
 
-
-        private IEnumerator SpawnBall()
-        {
-            while (true)
-            {
-                yield return new WaitForSeconds(SpawnDelay);
-                Spawn();
-            }
-        }
-
-        private void Spawn()
+        public void Spawn()
         {
             if (CountBalls <= MaxBalls)
             {
@@ -65,6 +54,7 @@ namespace Infrastructure.Factory
         private void OnGoal(PlayerBar player, BallCollision ball)
         {
             ball.GateCollided -= OnGoal;
+            Goal?.Invoke(player);
 
             _balls.Remove(ball);
             if (TestProbability(0.5f))
