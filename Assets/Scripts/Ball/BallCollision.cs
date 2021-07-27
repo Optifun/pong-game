@@ -1,17 +1,29 @@
 ﻿using System;
 using Bar;
 using UnityEngine;
+using Utils;
 
 namespace Ball
 {
-    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(CollisionDetector))]
     public class BallCollision : MonoBehaviour
     {
         public event Action<PlayerBar> PlayerCollided;
         public event Action<PlayerBar> GateCollided;
 
+        public CollisionDetector Collider;
 
-        private void OnCollisionEnter(Collision collision)
+        private void Start()
+        {
+            Collider.CollisionEnter += OnCollided;
+        }
+
+        private void OnDestroy()
+        {
+            Collider.CollisionEnter -= OnCollided;
+        }
+
+        private void OnCollided(Collision collision)
         {
             GameObject entity = collision.gameObject;
             if (entity.CompareTag("Bar"))

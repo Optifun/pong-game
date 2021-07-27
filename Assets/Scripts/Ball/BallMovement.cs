@@ -12,19 +12,13 @@ namespace Ball
     {
         private const float SpeedTolerance = 0.05f;
 
+        public Rigidbody Rigidbody;
+        public BallCollision Collision;
+
         /// <summary>
         /// Скорость мяча (постоянная)
         /// </summary>
-        public float ConstBallSpeed = 7f;
-
-        /// <summary>
-        /// Компонент физики мяча
-        /// </summary>
-        public Rigidbody Rigidbody;
-
-        public BallCollision Collision;
-
-        public MeshRenderer MeshRenderer;
+        private float ConstBallSpeed;
 
         private void Start()
         {

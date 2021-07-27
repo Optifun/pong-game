@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 8928754731251522127}
   - component: {fileID: 4620550730859129862}
   - component: {fileID: 7799036498928200543}
+  - component: {fileID: 5234577781676208381}
   m_Layer: 9
   m_Name: BallPrefab
   m_TagString: Ball
@@ -4859,8 +4860,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5537e6e194508864ca2d1e1803ad9276, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ConstBallSpeed: 7
-  BallRigidBody: {fileID: 1215349995032676142}
+  ConstBallSpeed: 4.75
+  Rigidbody: {fileID: 1215349995032676142}
+  Collision: {fileID: 4620550730859129862}
   MeshRenderer: {fileID: 1215349995032676140}
 --- !u!199 &8928754731251522127
 ParticleSystemRenderer:
@@ -4937,6 +4939,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9c6c0a5376742e59f221d060c3c7e84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Collider: {fileID: 5234577781676208381}
 --- !u!114 &7799036498928200543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4951,3 +4954,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _meshRenderer: {fileID: 1215349995032676140}
   ParticleSystem: {fileID: 5234847132142618445}
+--- !u!114 &5234577781676208381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1215349995032676136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16ccace0b5684dd5b3aab2efa66e28a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
