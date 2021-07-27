@@ -18,7 +18,6 @@ namespace Infrastructure.Factory
     {
         public GameObject TrackPrefab;
         public GameObject BarPrefab;
-        public GameObject BallPrefab;
         public GameObject WallPrefab;
 
         public Text freezeTimer;
@@ -26,24 +25,10 @@ namespace Infrastructure.Factory
         #region Variables
 
         /// <summary>
-        /// Максимальное количество мячей, одновременно присутствующих на поле
-        /// </summary>
-        public int MaxBalls { get; set; } = 6;
-
-        /// <summary>
-        /// Задержка в секундах между появлением нового мяча
-        /// </summary>
-        public float SpawnDelay { get; set; } = 3;
-
-        /// <summary>
         /// Время до старта матча
         /// </summary>
         public int FreezeTime { get; set; } = 3;
 
-        /// <summary>
-        /// Скорость мяча (постоянная)
-        /// </summary>
-        public float BallSpeed = 7f;
 
         public readonly Color[] colors = {Color.red, Color.blue, Color.green, Color.yellow}; //цвета платформ
 
@@ -89,16 +74,6 @@ namespace Infrastructure.Factory
         /// </summary>
         private Vector3 _fieldCenter;
 
-        /// <summary>
-        /// Мячи
-        /// </summary>
-        private List<GameObject> _balls;
-
-        /// <summary>
-        /// Количество мячей в данный момент
-        /// </summary>
-        private int CountBalls => _balls?.Count ?? 0;
-
         #endregion
 
         public void Awake()
@@ -124,13 +99,11 @@ namespace Infrastructure.Factory
 
         private void Start()
         {
-            _balls = new List<GameObject>();
             Game.SingletonObj.StartGameScene();
         }
 
         public void BackToMenu()
         {
-            _balls.Clear();
             SceneManager.LoadScene("MainMenu");
         }
 
@@ -194,59 +167,8 @@ namespace Infrastructure.Factory
             }
 
             freezeTimer.text = "";
-            StartCoroutine(SpawnBall());
+            // StartCoroutine(SpawnBall());
             StartCoroutine(UIInGameManager.SingletonObj.GameTime(120));
-        }
-
-        private IEnumerator SpawnBall()
-        {
-            while (true)
-            {
-                yield return new WaitForSeconds(3f);
-                Spawn();
-            }
-        }
-
-        /// <summary>
-        /// Возникает при попадании мяча в ворота
-        /// </summary>
-        /// <param name="id">Идентификатор игрока</param>
-        /// <param name="ball">Объект мяча</param>
-        public void OnGoal(int id, GameObject ball)
-        {
-            Destroy(ball, 2f);
-            _balls.Remove(ball);
-            // с вероятностью 50% спавнится новый мяч
-            if (Random.Range(0f, 1f) > 0.5f)
-                Spawn();
-        }
-
-        private void Spawn()
-        {
-            if (CountBalls <= MaxBalls)
-            {
-                GameObject ball = Instantiate(BallPrefab, new Vector3(0f, 0f, 0f), Quaternion.identity);
-                ball.layer = 9;
-                _balls.Add(ball);
-                Vector3 ballDirection;
-                int rand = Random.Range(0, 4);
-                float angle;
-                if (Game.SingletonObj.TotalPlayers == 4)
-                {
-                    angle = Mathf.Deg2Rad * (Random.Range(30f, 120f) + rand * 90);
-                    ballDirection = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)).normalized;
-                }
-                else
-                {
-                    rand = (rand < 2) ? 0 : 1;
-                    angle = Random.Range(-60f, 60f) + rand * 180;
-                    ballDirection = new Vector3(Mathf.Cos(Mathf.Deg2Rad * angle), 0, Mathf.Sin(Mathf.Deg2Rad * angle)).normalized;
-                }
-
-                BallMovement behaviour = ball.GetComponent<BallMovement>();
-                //задаём начальную траекторию мячу
-                behaviour.Launch(ballDirection * BallSpeed);
-            }
         }
     }
 }

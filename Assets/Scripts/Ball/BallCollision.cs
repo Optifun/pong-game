@@ -9,7 +9,7 @@ namespace Ball
     public class BallCollision : MonoBehaviour
     {
         public event Action<PlayerBar> PlayerCollided;
-        public event Action<PlayerBar> GateCollided;
+        public event Action<PlayerBar, BallCollision> GateCollided;
 
         public CollisionDetector Collider;
 
@@ -35,7 +35,7 @@ namespace Ball
             if (entity.CompareTag("DeadZone"))
             {
                 BarTrack barTrack = entity.GetComponent<BarTrack>();
-                GateCollided?.Invoke(barTrack.player);
+                GateCollided?.Invoke(barTrack.player, this);
             }
         }
     }

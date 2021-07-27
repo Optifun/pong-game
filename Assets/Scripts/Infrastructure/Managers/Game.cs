@@ -39,7 +39,7 @@ namespace Infrastructure.Managers
             foreach (var item in players)
             {
                 item.track.Goal += OnGoal;
-                item.track.Goal += LevelFactory.SingletonObj.OnGoal;
+                // item.track.Goal += LevelFactory.SingletonObj.OnGoal;
                 PrintScore(item);
             }
         }
